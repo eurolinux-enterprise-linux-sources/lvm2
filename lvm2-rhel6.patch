@@ -1,0 +1,46 @@
+ VERSION               | 2 +-
+ VERSION_DM            | 2 +-
+ conf/example.conf.in  | 2 +-
+ lib/config/defaults.h | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/VERSION b/VERSION
+index 5029f49..e781be4 100644
+--- a/VERSION
++++ b/VERSION
+@@ -1 +1 @@
+-2.02.118(2) (2015-03-24)
++2.02.118(2)-RHEL6 (2015-09-08)
+diff --git a/VERSION_DM b/VERSION_DM
+index 3413ca8..8a925be 100644
+--- a/VERSION_DM
++++ b/VERSION_DM
+@@ -1 +1 @@
+-1.02.95 (2015-03-24)
++1.02.95-RHEL6 (2015-09-08)
+diff --git a/conf/example.conf.in b/conf/example.conf.in
+index 51e8e85..8e2bf57 100644
+--- a/conf/example.conf.in
++++ b/conf/example.conf.in
+@@ -63,7 +63,7 @@ devices {
+     # fully. LVM2 needs to be compiled with udev support for this setting to
+     # take effect. N.B. Any device node or symlink not managed by udev in
+     # udev directory will be ignored with this setting on.
+-    obtain_device_list_from_udev = 1
++    obtain_device_list_from_udev = 0
+ 
+     # If several entries in the scanned directories correspond to the
+     # same block device and the tools need to display a name for device,
+diff --git a/lib/config/defaults.h b/lib/config/defaults.h
+index 8339c1a..998e85c 100644
+--- a/lib/config/defaults.h
++++ b/lib/config/defaults.h
+@@ -30,7 +30,7 @@
+ #define DEFAULT_DEV_DIR "/dev"
+ #define DEFAULT_PROC_DIR "/proc"
+ #define DEFAULT_SYSTEM_ID_SOURCE "none"
+-#define DEFAULT_OBTAIN_DEVICE_LIST_FROM_UDEV 1
++#define DEFAULT_OBTAIN_DEVICE_LIST_FROM_UDEV 0
+ #define DEFAULT_EXTERNAL_DEVICE_INFO_SOURCE "none"
+ #define DEFAULT_SYSFS_SCAN 1
+ #define DEFAULT_MD_COMPONENT_DETECTION 1
