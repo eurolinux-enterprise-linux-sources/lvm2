@@ -29,7 +29,7 @@
 Summary: Userland logical volume management tools 
 Name: lvm2
 Version: 2.02.143
-Release: 7%{?dist}.1
+Release: 12%{?dist}
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
@@ -45,6 +45,13 @@ Patch7: lvm2-2_02_149-document-lockd-and-polld-is-available-only-if-support-comp
 Patch8: lvm2-2_02_150-fix-flushing-for-mirror-target.patch
 Patch9: lvm2-2_02_150-workaround-for-possible-raid-leg-allocation-failure-after-not-in-sync-raid-leg-failure.patch
 Patch10: lvm2-2_02_162-fix-automatic-updates-of-pv-extension-headers.patch
+Patch11: lvm2-2_02_167-prevent-non-synced-raid1-repair-unless-force.patch
+Patch12: lvm2-2_02_159-do-not-issue-failed-to-create-directory-message-for-failure-in-dm_create_dir.patch
+Patch13: lvm2-2_02_152-use-any-inherited-tags-when-wiping-metadata-sub-lvs-to-ensure-activation.patch
+Patch14: lvm2-2_02_166-fix-lvchange-discard-and-zero-for-active-thin-pool.patch
+Patch15: lvm2-2_02_161-add-mpathoption-disablequeueing-to-blkdeactivate.patch
+Patch16: lvm2-2_02_169-fix-handling-of-transient-failure-of-a-pv-hodling-raid-sub-lvs.patch
+Patch17: lvm2-2_02_169-allow-transiently-failed-raid-lv-to-be-refreshed.patch
 
 BuildRequires: libselinux-devel >= 1.30.19-4, libsepol-devel
 BuildRequires: ncurses-devel
@@ -89,8 +96,15 @@ or more physical volumes and creating one or more logical volumes
 %patch6 -p1 -b .device_mismatch_fixes
 %patch7 -p1 -b .lockd_polld_doc
 %patch8 -p1 -b .mirror_flushing
-%patch9 -p1 -b .rad_leg_alloc_failure
-%patch10 -p1 -b .fix_pv_header_updates
+%patch9 -p1 -b .raid_leg_alloc_failure
+%patch10 -p1 -b .pv_automatic_update
+%patch11 -p1 -b .raid1_repair_force
+%patch12 -p1 -b .dm_create_dir_msg
+%patch13 -p1 -b .inherited_tags_meta_sub_lv
+%patch14 -p1 -b .lvchange_discard_and_zero
+%patch15 -p1 -b .blkdeactivate_mpathoption
+%patch16 -p1 -b .raid_sub_lvs_transient_failure
+%patch17 -p1 -b .transient_failure_raid_lv_refresh
 
 %build
 %define _exec_prefix ""
@@ -114,18 +128,15 @@ rm -rf $RPM_BUILD_ROOT
 %post
 /sbin/ldconfig
 /sbin/chkconfig --add lvm2-monitor
-/sbin/chkconfig --add blk-availability
 
 %preun
 if [ "$1" = 0 ]; then
 	/sbin/chkconfig --del lvm2-monitor
-	/sbin/chkconfig --del blk-availability
 fi
 
 %files
 %defattr(-,root,root,-)
 %doc COPYING COPYING.LIB INSTALL README VERSION WHATS_NEW
-%{_sbindir}/blkdeactivate
 %{_sbindir}/fsadm
 %{_sbindir}/lvchange
 %{_sbindir}/lvconvert
@@ -179,7 +190,6 @@ fi
 %{_mandir}/man7/lvmcache.7.gz
 %{_mandir}/man7/lvmthin.7.gz
 %{_mandir}/man7/lvmsystemid.7.gz
-%{_mandir}/man8/blkdeactivate.8.gz
 %{_mandir}/man8/fsadm.8.gz
 %{_mandir}/man8/lvchange.8.gz
 %{_mandir}/man8/lvconvert.8.gz
@@ -252,7 +262,6 @@ fi
 %dir %{_localstatedir}/run/lvm
 %{_sysconfdir}/rc.d/init.d/lvm2-monitor
 %{_sysconfdir}/rc.d/init.d/lvm2-lvmetad
-%{_sysconfdir}/rc.d/init.d/blk-availability
 
 ##############################################################################
 # Library and Development subpackages
@@ -406,16 +415,27 @@ Conflicts: dracut < 002-18
 This package contains the supporting userspace utility, dmsetup,
 for the kernel device-mapper.
 
+%post -n device-mapper
+/sbin/chkconfig --add blk-availability
+
+%preun -n device-mapper
+if [ "$1" = 0 ]; then
+	/sbin/chkconfig --del blk-availability
+fi
+
 %files -n device-mapper
 %defattr(-,root,root,-)
 %doc COPYING COPYING.LIB WHATS_NEW_DM VERSION_DM README INSTALL udev/12-dm-permissions.rules
 %attr(755,root,root) %{_sbindir}/dmsetup
+%attr(755,root,root) %{_sbindir}/blkdeactivate
 %{_sbindir}/dmstats
 %{_mandir}/man8/dmsetup.8.gz
 %{_mandir}/man8/dmstats.8.gz
+%{_mandir}/man8/blkdeactivate.8.gz
 %{_udevdir}/10-dm.rules
 %{_udevdir}/13-dm-disk.rules
 %{_udevdir}/95-dm-notify.rules
+%{_sysconfdir}/rc.d/init.d/blk-availability
 
 %package -n device-mapper-devel
 Summary: Development libraries and headers for device-mapper
@@ -459,6 +479,11 @@ Summary: Device-mapper event daemon
 Group: System Environment/Base
 Version: %{device_mapper_version}
 Release: %{release}
+# Older lvm2 versions had incorrect dependency on device-mapper-event
+# package where lvm2-libs had "Requires: device-mapper-event >="
+# instead of "Requires: device-mapper-event =". This was fixed in
+# lvm2-2.02.111-1 and later.
+Conflicts: lvm2-libs < 2.02.111
 Requires: device-mapper = %{device_mapper_version}-%{release}
 Requires: device-mapper-event-libs = %{device_mapper_version}-%{release}
 
@@ -515,7 +540,28 @@ the device-mapper event library.
 
 
 %changelog
-* Mon Aug 15 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-7.el6_8.1
+* Wed Jan 11 2017 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-12
+- Allow transiently failed RAID LV to be refreshed.
+
+* Tue Dec 13 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-11
+- Fix handling of transient failure of a PV holding RAID sub LVs.
+
+* Thu Nov 24 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-10
+- Disable queueing on mpath devs in blk-availability initscript.
+- Add new -m|--mpathoption disablequeueing to blkdeactivate.
+- Prevent only repair for non-synced raid1 unless --force, not other raid types.
+
+* Thu Nov 10 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-9
+- Fix lvchange --discard|--zero for active thin-pool.
+- Fix lock-holder device for thin pool with inactive thin volumes.
+- Use any inherited tags when wiping metadata sub LVs to ensure activation.
+- Do not issue "Failed to create directory" message for dm_create_dir failure.
+- Add Conflicts: lvm2-libs < 2.02.111 to device-mapper-event to prevent
+  incorrect package setup if old and new device-mapper/lvm2 packages combined.
+- Move blkdeactivate/blk-availability script from lvm2 to device-mapper package.
+
+* Wed Nov 09 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-8
+- Prevent non-synced raid1 repair unless --force
 - Fix automatic updates of PV extension headers to newest version.
 
 * Wed Apr 06 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-7

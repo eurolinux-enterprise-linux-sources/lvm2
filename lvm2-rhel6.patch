@@ -4,14 +4,14 @@ index 8e0effa..1d9c55e 100644
 +++ b/VERSION
 @@ -1 +1 @@
 -2.02.143(2) (2016-02-21)
-+2.02.143(2)-RHEL6 (2016-08-15)
++2.02.143(2)-RHEL6 (2016-12-13)
 diff --git a/VERSION_DM b/VERSION_DM
 index 1b99724..42369cc 100644
 --- a/VERSION_DM
 +++ b/VERSION_DM
 @@ -1 +1 @@
 -1.02.117 (2016-02-21)
-+1.02.117-RHEL6 (2016-08-15)
++1.02.117-RHEL6 (2016-12-13)
 diff --git a/conf/example.conf.in b/conf/example.conf.in
 index 60f8023..24385ab 100644
 --- a/conf/example.conf.in
