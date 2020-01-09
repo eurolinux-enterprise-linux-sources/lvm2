@@ -29,7 +29,7 @@
 Summary: Userland logical volume management tools 
 Name: lvm2
 Version: 2.02.143
-Release: 12%{?dist}
+Release: 12%{?dist}.1
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
@@ -52,6 +52,7 @@ Patch14: lvm2-2_02_166-fix-lvchange-discard-and-zero-for-active-thin-pool.patch
 Patch15: lvm2-2_02_161-add-mpathoption-disablequeueing-to-blkdeactivate.patch
 Patch16: lvm2-2_02_169-fix-handling-of-transient-failure-of-a-pv-hodling-raid-sub-lvs.patch
 Patch17: lvm2-2_02_169-allow-transiently-failed-raid-lv-to-be-refreshed.patch
+Patch18: lvm2-2_02_169-lvchange-reject-writemost-writebehind-during-resync.patch
 
 BuildRequires: libselinux-devel >= 1.30.19-4, libsepol-devel
 BuildRequires: ncurses-devel
@@ -105,6 +106,7 @@ or more physical volumes and creating one or more logical volumes
 %patch15 -p1 -b .blkdeactivate_mpathoption
 %patch16 -p1 -b .raid_sub_lvs_transient_failure
 %patch17 -p1 -b .transient_failure_raid_lv_refresh
+%patch18 -p1 -b .reject_writebehind_during_resync
 
 %build
 %define _exec_prefix ""
@@ -538,8 +540,10 @@ the device-mapper event library.
 %{_includedir}/libdevmapper-event.h
 /usr%{_libdir}/pkgconfig/devmapper-event.pc
 
-
 %changelog
+* Thu Nov 02 2017 Marian Csontos <mcsontos@redhat.com> - 2.02.143-12.el6_9.1
+- Reject writemostly/writebehind in lvchange during resynchronization.
+
 * Wed Jan 11 2017 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-12
 - Allow transiently failed RAID LV to be refreshed.
 
