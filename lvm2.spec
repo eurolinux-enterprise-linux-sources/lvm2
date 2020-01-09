@@ -29,7 +29,7 @@
 Summary: Userland logical volume management tools 
 Name: lvm2
 Version: 2.02.143
-Release: 7%{?dist}
+Release: 7%{?dist}.1
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
@@ -44,6 +44,7 @@ Patch6: lvm2-2_02_149-fixes-for-device-mismatch-detection.patch
 Patch7: lvm2-2_02_149-document-lockd-and-polld-is-available-only-if-support-compiled-in.patch
 Patch8: lvm2-2_02_150-fix-flushing-for-mirror-target.patch
 Patch9: lvm2-2_02_150-workaround-for-possible-raid-leg-allocation-failure-after-not-in-sync-raid-leg-failure.patch
+Patch10: lvm2-2_02_162-fix-automatic-updates-of-pv-extension-headers.patch
 
 BuildRequires: libselinux-devel >= 1.30.19-4, libsepol-devel
 BuildRequires: ncurses-devel
@@ -89,6 +90,7 @@ or more physical volumes and creating one or more logical volumes
 %patch7 -p1 -b .lockd_polld_doc
 %patch8 -p1 -b .mirror_flushing
 %patch9 -p1 -b .rad_leg_alloc_failure
+%patch10 -p1 -b .fix_pv_header_updates
 
 %build
 %define _exec_prefix ""
@@ -513,6 +515,9 @@ the device-mapper event library.
 
 
 %changelog
+* Mon Aug 15 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-7.el6_8.1
+- Fix automatic updates of PV extension headers to newest version.
+
 * Wed Apr 06 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-7
 - Workaround for raid leg allocation failure after not-in-sync raid leg failure.
 - Fix flushing of outstanding IO for mirror target (2.02.133).
