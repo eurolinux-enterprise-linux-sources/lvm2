@@ -1,4 +1,4 @@
-%define device_mapper_version 1.02.95
+%define device_mapper_version 1.02.117
 
 %ifarch i686 x86_64
 %define enable_cluster 1
@@ -21,33 +21,29 @@
 %define configure_cluster --with-cluster=internal --with-clvmd=none --disable-cmirrord
 %endif
 
-%define persistent_data_version 0.3.2-1
+%define persistent_data_version 0.6.2
 
 # Do not reset Release to 1 unless both lvm2 and device-mapper 
 # versions are increased together.
 
 Summary: Userland logical volume management tools 
 Name: lvm2
-Version: 2.02.118
-Release: 3%{?dist}.4
+Version: 2.02.143
+Release: 7%{?dist}
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
 Source0: ftp://sources.redhat.com/pub/lvm2/releases/LVM2.%{version}.tgz
 Patch0: lvm2-rhel6.patch
-Patch1: lvm2-set-default-preferred_names.patch
-Patch2: lvm2-disable-systemid-feature-and-remove-man-page-references.patch
-Patch3: lvm2-2_02_119-fix-process_each_lv_in_vg-to-do-selection-first-then-processing.patch
-Patch4: lvm2-2_02_119-allocation-fixes-for-cling_by_tags.patch
-Patch5: lvm2-2_02_119-do-not-silently-accept-lvcreate-m-with-raid-4-5-6.patch
-Patch6: lvm2-2_02_119-set-correct-vgid-when-updating-cache-when-writing-pv-metadata.patch
-Patch7: lvm2-2_02_119-lvmconf-add-halvm-and-service-handling.patch
-Patch8: lvm2-2_02_119-various-patches-for-doc-man-comments-messages.patch
-Patch9: lvm2-2_02_119-do-not-skip-invalidation-of-cached-orphans-if-vg-write-lock-is-held.patch
-Patch10: lvm2-2_02_122-fix-suspended-check-in-usable-filter-for-snapshots.patch
-Patch11: lvm2-2_02_127-fix-regression-in-cache-causing-filter-bypass.patch
-Patch12: lvm2-2_02_126-fix-lvextend-failure-when-varying-stripes.patch
-Patch13: lvm2-2_02_130-fix-uninitialized-device-status-on-outdated-cache-record.patch
+Patch1: lvm2-2_02_144-various-cleanups-and-fixes-from-upstream.patch
+Patch2: lvm2-2_02_146-allow-for-raid-leg-replacement-if-not-both-data-and-metadata-image-are-on-pvs.patch
+Patch3: lvm2-2_02_147-fix-resize-of-stacked-raid-thin-data-volume.patch
+Patch4: lvm2-2_02_147-use-proc-self-mountinfo-to-detect-mounted-volume-in-fsadm.patch
+Patch5: lvm2-2_02_148-detect-mismatch-between-devices-used-and-devices-assumed-for-an-lv.patch
+Patch6: lvm2-2_02_149-fixes-for-device-mismatch-detection.patch
+Patch7: lvm2-2_02_149-document-lockd-and-polld-is-available-only-if-support-compiled-in.patch
+Patch8: lvm2-2_02_150-fix-flushing-for-mirror-target.patch
+Patch9: lvm2-2_02_150-workaround-for-possible-raid-leg-allocation-failure-after-not-in-sync-raid-leg-failure.patch
 
 BuildRequires: libselinux-devel >= 1.30.19-4, libsepol-devel
 BuildRequires: ncurses-devel
@@ -84,19 +80,15 @@ or more physical volumes and creating one or more logical volumes
 %prep
 %setup -q -n LVM2.%{version}
 %patch0 -p1 -b .rhel6
-%patch1 -p1 -b .preferred_names
-%patch2 -p1 -b .disable_systemid
-%patch3 -p1 -b .process_each_lv_select
-%patch4 -p1 -b .cling_by_tags
-%patch5 -p1 -b .lvcreate_m_raid456
-%patch6 -p1 -b .vgid_pv_write
-%patch7 -p1 -b .lvconf
-%patch8 -p1 -b .various
-%patch9 -p1 -b .cache_invalidation
-%patch10 -p1 -b .snapshot_usable
-%patch11 -p1 -b .cache_filter_bypass
-%patch12 -p1 -b .lvextend_varying_stripes
-%patch13 -p1 -b .cache_uninitialized
+%patch1 -p1 -b .fixes_from_v144
+%patch2 -p1 -b .raid_replacement
+%patch3 -p1 -b .resize_stacked_raid_thin
+%patch4 -p1 -b .fsadm_mountinfo
+%patch5 -p1 -b .device_mismatch
+%patch6 -p1 -b .device_mismatch_fixes
+%patch7 -p1 -b .lockd_polld_doc
+%patch8 -p1 -b .mirror_flushing
+%patch9 -p1 -b .rad_leg_alloc_failure
 
 %build
 %define _exec_prefix ""
@@ -105,7 +97,7 @@ or more physical volumes and creating one or more logical volumes
 %define _libdir /%{_lib}
 %define _udevdir /lib/udev/rules.d
 
-%configure --enable-lvm1_fallback --enable-fsadm --with-pool=internal --with-user= --with-group= --with-usrlibdir=/usr/%{_lib} --with-usrsbindir=/usr/sbin --with-udevdir=%{_udevdir} --enable-udev-rule-exec-detection --with-device-uid=0 --with-device-gid=6 --with-device-mode=0660 --enable-pkgconfig --enable-applib --enable-cmdlib --enable-dmeventd --enable-udev_sync --with-thin=internal --with-thin-check=/usr/sbin/thin_check --with-thin-dump=/usr/sbin/thin_dump --with-thin-repair=/usr/sbin/thin_repair --enable-lvmetad --with-cache=internal %{configure_cluster} --with-default-mirror-segtype=mirror --with-default-raid10-segtype=mirror --with-default-sparse-segtype=snapshot
+%configure --enable-lvm1_fallback --enable-fsadm --with-pool=internal --with-user= --with-group= --with-usrlibdir=/usr/%{_lib} --with-usrsbindir=/usr/sbin --with-udevdir=%{_udevdir} --enable-udev-rule-exec-detection --with-device-uid=0 --with-device-gid=6 --with-device-mode=0660 --enable-pkgconfig --enable-applib --enable-cmdlib --enable-dmeventd --enable-udev_sync --with-thin=internal --with-thin-check=/sbin/thin_check --with-thin-dump=/sbin/thin_dump --with-thin-repair=/sbin/thin_repair --with-cache-check=/sbin/cache_check --with-cache-dump=/sbin/cache_dump --with-cache-repair=/sbin/cache_repair --enable-lvmetad --disable-use-lvmetad --with-cache=internal %{configure_cluster} --with-default-mirror-segtype=mirror --with-default-raid10-segtype=mirror --with-default-sparse-segtype=snapshot
 
 make %{?_smp_mflags}
 
@@ -113,8 +105,6 @@ make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 make install_system_dirs DESTDIR=$RPM_BUILD_ROOT
 make install_initscripts DESTDIR=$RPM_BUILD_ROOT
-rm -f $RPM_BUILD_ROOT/etc/lvm/lvmlocal.conf
-rm -f $RPM_BUILD_ROOT/usr/share/man/man7/lvmsystemid.7
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -142,6 +132,7 @@ fi
 %{_sbindir}/lvextend
 %{_sbindir}/lvm
 %{_sbindir}/lvmchange
+%{_sbindir}/lvmconfig
 %{_sbindir}/lvmdiskscan
 %{_sbindir}/lvmdump
 %{_sbindir}/lvmsadc
@@ -185,6 +176,7 @@ fi
 %{_mandir}/man5/lvm.conf.5.gz
 %{_mandir}/man7/lvmcache.7.gz
 %{_mandir}/man7/lvmthin.7.gz
+%{_mandir}/man7/lvmsystemid.7.gz
 %{_mandir}/man8/blkdeactivate.8.gz
 %{_mandir}/man8/fsadm.8.gz
 %{_mandir}/man8/lvchange.8.gz
@@ -193,9 +185,12 @@ fi
 %{_mandir}/man8/lvdisplay.8.gz
 %{_mandir}/man8/lvextend.8.gz
 %{_mandir}/man8/lvm.8.gz
+%{_mandir}/man8/lvm-config.8.gz
 %{_mandir}/man8/lvm-dumpconfig.8.gz
+%{_mandir}/man8/lvm-lvpoll.8.gz
 %{_mandir}/man8/lvmchange.8.gz
 %{_mandir}/man8/lvmconf.8.gz
+%{_mandir}/man8/lvmconfig.8.gz
 %{_mandir}/man8/lvmdiskscan.8.gz
 %{_mandir}/man8/lvmdump.8.gz
 %{_mandir}/man8/lvmetad.8.gz
@@ -240,11 +235,14 @@ fi
 %dir %{_sysconfdir}/lvm
 %ghost %{_sysconfdir}/lvm/cache/.cache
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lvm/lvm.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lvm/lvmlocal.conf
 %dir %{_sysconfdir}/lvm/profile
 %{_sysconfdir}/lvm/profile/command_profile_template.profile
 %{_sysconfdir}/lvm/profile/metadata_profile_template.profile
 %{_sysconfdir}/lvm/profile/thin-generic.profile
 %{_sysconfdir}/lvm/profile/thin-performance.profile
+%{_sysconfdir}/lvm/profile/cache-mq.profile
+%{_sysconfdir}/lvm/profile/cache-smq.profile
 %dir %{_sysconfdir}/lvm/backup
 %dir %{_sysconfdir}/lvm/cache
 %dir %{_sysconfdir}/lvm/archive
@@ -409,8 +407,10 @@ for the kernel device-mapper.
 %files -n device-mapper
 %defattr(-,root,root,-)
 %doc COPYING COPYING.LIB WHATS_NEW_DM VERSION_DM README INSTALL udev/12-dm-permissions.rules
-%attr(755,root,root) /sbin/dmsetup
+%attr(755,root,root) %{_sbindir}/dmsetup
+%{_sbindir}/dmstats
 %{_mandir}/man8/dmsetup.8.gz
+%{_mandir}/man8/dmstats.8.gz
 %{_udevdir}/10-dm.rules
 %{_udevdir}/13-dm-disk.rules
 %{_udevdir}/95-dm-notify.rules
@@ -513,11 +513,91 @@ the device-mapper event library.
 
 
 %changelog
-* Tue Nov 10 2015 Alasdair Kergon <agk@redhat.com> - 2.02.118-3.el6_7.4
+* Wed Apr 06 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-7
+- Workaround for raid leg allocation failure after not-in-sync raid leg failure.
+- Fix flushing of outstanding IO for mirror target (2.02.133).
+
+* Fri Apr 01 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-6
+- Further fixes for device mismatch detection for LV if .cache file is used.
+
+* Wed Mar 30 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-5
+- Fix VGID/LVID dev indexing in dev cache to not index already indexed devs.
+
+* Wed Mar 30 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-4
+- Remove spurious error about no value in /sys/dev/block/major:minor/dm/uuid.
+- Fix device mismatch detection for LV if persistent .cache file is used.
+- Fix holder device not being found in /dev while sysfs has it during dev scan.
+- Document that lvmlockd and lvmpolld features are available only if compiled in
+  (RHEL6 lvm2 doesn't have lvmlockd and lvmpolld compiled in).
+
+* Tue Mar 22 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-3
+- Detect and warn about mismatch between devices used and assumed for an LV.
+- If available, use /proc/self/mountinfo to detect mounted volume in fsadm.
+
+* Wed Mar 16 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-2
+- Fix resize of stacked raid thin data volume (2.02.141).
+- Allow for raid leg replacement if not both data and metadata image are on pvs.
+
+* Wed Feb 24 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.143-1
+- Use uninitilized pool header detection in all cases.
+- Fix read error detection when checking for uninitialized thin-pool header.
+- Fix error path for internal error in lvmetad vg lookup code.
+- Fix error path when sending thin-pool message fails in update_pool_lv().
+- Support reporting CheckNeeded and Fail state for thin-pool and thin LV.
+- For failing thin-pool and thin volume correctly report percentage as INVALID.
+- Report -1, not 'unkown' for lv_{snapshot_invalid,merge_failed} with --binary.
+- If PV belongs to some VG and metadata missing, skip it if system ID is used.
+- Automatically change PV header extension to latest version if writing PV/VG.
+- Identify used PVs in pv_attr field by new 'u' character.
+- Add pv_in_use reporting field to report if PV is used or not.
+- Add pv_ext_vsn reporting field to report PV header extension version.
+- Add protective flag marking PVs as used even if no metadata available.
+- Fix memory pool corruption in pvmove (2.02.141).
+- Support control of spare metadata creation when repairing thin-pool.
+- Fix config type of 'log/verbose' from bool to int (2.02.99).
+- Fix inverted data LV thinp watermark calc for dmeventd response (2.02.133).
+- Use use_blkid_wiping=0 if not defined in lvm.conf and support not compiled in.
+- Clear cached bootloader areas when PV format changed.
+- Fix string boundary check in _get_canonical_field_name().
+- Always initialized hist struct in _stats_parse_histogram().
+- Improve status parsing for thin-pool and thin devices.
+- Use fully aligned allocations for dm_pool_strdup/strndup() (1.02.64).
+- Fix thin-pool table parameter feature order to match kernel output.
+
+* Wed Feb 10 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.141-2
+- Fix lvm.conf and lvmlocal.conf for RHEL6 environment.
+
+* Wed Feb 10 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.141-1
+- Do not check for suspended devices if scanning for lvmetad update.
+- Fix part. table filter with external_device_info_source="udev" and blkid<2.20.
+- Add metadata/check_pv_device_sizes switch to lvm.conf for device size checks.
+- Warn if device size is less than corresponding PV size in metadata.
+- Cache device sizes internally.
+- Restore support for command breaking in process_each_lv_in_vg() (2.02.118).
+- Use correct mempool when process_each_lv_in_vg() (2.02.118).
+- Fix lvm.8 man to show again prohibited suffixes.
+- Fix configure to set proper use_blkid_wiping if autodetected as disabled.
+- Initialise udev in clvmd for use in device scanning. (2.02.116)
+- Add seg_le_ranges report field for common format when displaying seg devices.
+- Honour report/list_item_separator for seg_metadata_le_ranges report field.
+- Don't mark hidden devs in -o devices,metadata_devices,seg_pe_ranges.(2.02.140)
+- Change LV sizes in seg_pe_ranges report field to match underlying devices.
+- Add kernel_cache_settings report field for cache LV settings used in kernel.
+- Fix man page for dmsetup udevcreatecookie.
+
+* Thu Jan 21 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.140-3
 - Reinstate memory locking by dropping --enable-valgrind-pool setting.
 
-* Tue Sep 08 2015 Peter Rajnoha <prajnoha@redhat.com> - 2.02.118-3.el6_7.3
-- Fix use of uninitialized device status if reading outdated .cache record.
+* Thu Jan 21 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.140-2
+- Fix configure to set proper use_blkid_wiping if autodetected as disabled.
+
+* Wed Jan 20 2016 Peter Rajnoha <prajnoha@redhat.com> - 2.02.140-1
+- Initialise udev in clvmd for use in device scanning. (2.02.116)
+- Add seg_le_ranges report field for common format when displaying seg devices.
+- Change LV sizes in seg_pe_ranges report field to match underlying devices.
+- Add kernel_cache_settings report field for cache LV settings used in kernel.
+- Update to latest upstream release with various fixes and
+  enhancementsdetailed in WHATS_NEW and WHATS_NEW_DM file.
 
 * Wed Jul 29 2015 Peter Rajnoha <prajnoha@redhat.com> - 2.02.118-3.el6_7.2
 - Fix alloc segfault when extending LV with fewer stripes than in first seg.
