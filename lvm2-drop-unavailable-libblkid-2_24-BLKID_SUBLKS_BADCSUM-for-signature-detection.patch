@@ -4,7 +4,7 @@
  3 files changed, 13 insertions(+), 14 deletions(-)
 
 diff --git a/configure b/configure
-index 7d945df..ef24b31 100755
+index 4d2fb2f..f357462 100755
 --- a/configure
 +++ b/configure
 @@ -12111,12 +12111,12 @@ if test -n "$BLKID_CFLAGS"; then
@@ -70,7 +70,7 @@ index 7d945df..ef24b31 100755
  else
  	BLKID_CFLAGS=$pkg_cv_BLKID_CFLAGS
 diff --git a/configure.ac b/configure.ac
-index e427708..935ea08 100644
+index 379d37f..e6bb905 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -1235,7 +1235,7 @@ AC_ARG_ENABLE(blkid_wiping,
@@ -92,7 +92,7 @@ index e427708..935ea08 100644
  fi
  AC_MSG_CHECKING([whether to enable libblkid detection of signatures when wiping])
 diff --git a/lib/device/dev-type.c b/lib/device/dev-type.c
-index af4b407..eda7982 100644
+index ce4a05b..9bdee32 100644
 --- a/lib/device/dev-type.c
 +++ b/lib/device/dev-type.c
 @@ -712,8 +712,7 @@ static int _wipe_known_signatures_with_blkid(struct device *dev, const char *nam

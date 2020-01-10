@@ -8,10 +8,10 @@
  7 files changed, 46 insertions(+), 25 deletions(-)
 
 diff --git a/conf/example.conf.in b/conf/example.conf.in
-index cd58615..742812c 100644
+index 4418f56..6f7b161 100644
 --- a/conf/example.conf.in
 +++ b/conf/example.conf.in
-@@ -702,17 +702,29 @@ global {
+@@ -716,17 +716,29 @@ global {
  	activation = 1
  
  	# Configuration option global/fallback_to_lvm1.

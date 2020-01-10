@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.149
+%global device_mapper_version 1.02.158
 
 %global enable_cache 1
 %global enable_cluster 1
@@ -27,7 +27,7 @@
 
 %global boom_pkgname lvm2-python-boom
 %global boom_version 0.9
-%global boom_release 14
+%global boom_release 18
 %global boom_summary A set of libraries and tools for managing boot loader entries
 %global boom_dir boom-%{boom_version}
 
@@ -66,8 +66,8 @@
 Summary: Userland logical volume management tools 
 Name: lvm2
 Epoch: 7
-Version: 2.02.180
-Release: 10%{?dist}.8%{?scratch}
+Version: 2.02.185
+Release: 2%{?dist}%{?scratch}
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
@@ -78,66 +78,13 @@ Patch1: lvm2-set-default-preferred_names.patch
 Patch2: lvm2-fix-libdm-versioning-for-dm_tree_node_size_changed-symbol.patch
 Patch3: lvm2-drop-unavailable-libblkid-2_24-BLKID_SUBLKS_BADCSUM-for-signature-detection.patch
 Patch4: lvm2-default-allow-changes-with-duplicate-pvs.patch
-Patch5: lvm2-rhel7-fix-StartLimitInterval.patch
+#Patch5: lvm2-rhel7-fix-StartLimitInterval.patch
 Patch6: lvm2-rhel7-add-lvm1-and-pool-back.patch
-Patch7: lvm2-2_02_180-make-generate.patch
-Patch8: lvm2-2_02_181-post-release.patch
-Patch9: lvm2-2_02_181-lvconvert-restrict-command-matching-for-no-option-va.patch
-Patch10: lvm2-2_02_181-lvconvert-improve-text-about-splitmirrors.patch
-Patch11: lvm2-2_02_181-lvconvert-reject-conversions-of-LVs-under-snapshot.patch
-Patch12: lvm2-2_02_181-dmsetup-fix-error-propagation-in-_display_info_cols.patch
-Patch13: lvm2-2_02_181-reject-conversions-trackchanges-SubLVs.patch
-Patch14: lvm2-2_02_181-reject-conversions-trackchanges-LVs.patch
-Patch15: lvm2-2_02_181-dmeventd-base-vdo-plugin.patch
-Patch16: lvm2-2_02_181-dmeventd-rebase-to-stable-branch.patch
-Patch17: lvm2-2_02_181-WHATS_NEW.patch
-Patch18: lvm2-2_02_181-build-make-generate.patch
-Patch19: lvm2-2_02_182-vgcreate-close-exclusive-fd-after-pvcreate.patch
-Patch20: lvm2-2_02_182-mirrors-fix-read_only_volume_list.patch
-Patch21: lvm2-2_02_182-cache-drop-metadata_format-validation.patch
-Patch22: lvm2-2_02_182-mirror-fix-splitmirrors-for-mirror-type.patch
-Patch23: lvm2-2_02_182-lvconvert-fix-direct-raid0-to-striped-conversion.patch
-Patch24: lvm2-2_02_182-lvconvert-fix-conversion-attempts-to-linear.patch
-Patch25: lvm2-2_02_182-dmeventd-lvm2-plugin-uses-envvar-registry.patch
-Patch26: lvm2-2_02_182-scripts-add-After-rbdmap.service-to-lvm2-activation.patch
-Patch27: lvm2-2_02_182-lvconvert-avoid-superfluous-interim-raid-type.patch
-Patch28: lvm2-2_02_182-lvconvert-fix-interim-segtype-regression-on-raid6-co.patch
-Patch29: lvm2-2_02_182-fix-clustered-mirror-repair.patch
-Patch30: lvm2-2_02_182-metadata-prevent-writing-beyond-metadata-area.patch
-# BZ 1647718:
-Patch31: lvm2-2_02_183-libdm-stats-move-no-regions-warning-after-dm_stats_l.patch
-Patch32: lvm2-2_02_183-dmsetup-fix-stats-report-command-output.patch
-# BZ 1656498:
-Patch33: lvm2-2_02_183-io-use-sync-io-if-aio-fails.patch
-Patch34: lvm2-2_02_183-bcache-sync-io-fixes.patch
-Patch35: lvm2-2_02_183-WHATS_NEW-sync-io.patch
-# BZ 1657640:
-Patch36: lvm2-2_02_182-scan-use-full-md-filter-when-md-1.0-devices-are-pres.patch
-Patch37: lvm2-2_02_182-scan-enable-full-md-filter-when-md-1.0-devices-are-p.patch
-Patch38: lvm2-2_02_183-scan-md-metadata-version-0.90-is-at-the-end-of-disk.patch
-Patch39: lvm2-2_02_183-pvscan-lvmetad-use-full-md-filter-when-md-1.0-device.patch
-Patch40: lvm2-2_02_183-pvscan-lvmetad-use-udev-info-to-improve-md-component.patch
-# Overhead:
-Patch41: lvm2-2_02_183-build-make-generate.patch
-Patch42: lvm2-2_02_183-WHATS_NEW.patch
-# BZ 1688316:
-Patch43: lvm2-2_02_184-apply-obtain_device_list_from_udev-to-all-libudev-us.patch
-# BZ 1695879
-Patch44: lvm2-2_02_182-bcache-reduce-MAX_IO-to-256.patch
-# Mem leak by covertity:
-Patch45: lvm2-2_02_185-bcache-Fix-memory-leak.patch
-# BZ 1696742
-Patch46: lvm2-2_02_184-config-add-new-setting-io_memory_size.patch
-Patch47: lvm2-2_02_184-io-warn-when-metadata-size-approaches-io-memory-size.patch
-Patch48: lvm2-2_02_184-io-increase-the-default-io-memory-from-4-to-8-MiB.patch
-# BZ 1696740
-Patch49: lvm2-2_02_184-dm-migration_threshold-for-old-linked-tools.patch
-# Internals:
-Patch50: lvm2-rhel-config-Change-version-for-backported-config-options.patch
-Patch51: lvm2-build-make-generate.patch
-# BZ 1698750
-Patch52: lvm2-2_02_184-pvscan-lvmetad-init-should-set-updating-before-scann.patch
-
+Patch7: lvm2-2_02_186-lvmlockd-do-not-allow-mirror-LV-to-be-activated-shar.patch
+Patch8: lvm2-2_02_186-man-updates-to-lvmlockd.patch
+Patch9: lvm2-2_02_186-cache-support-no_discard_passdown.patch
+Patch10: lvm2-2_02_186-mirror-fix-monitoring-change.patch
+Patch11: lvm2-make-generate.patch
 
 BuildRequires: libselinux-devel >= %{libselinux_version}, libsepol-devel
 BuildRequires: libblkid-devel >= %{util_linux_version}
@@ -195,54 +142,13 @@ or more physical volumes and creating one or more logical volumes
 %patch2 -p1 -b .libdm_symbol_versioning
 %patch3 -p1 -b .blkid_sublks_badcsum
 %patch4 -p1 -b .default_allow_dup
-%patch5 -p1 -b .startlimitinterval
+#%%patch5 -p1 -b .startlimitinterval
 %patch6 -p1 -b .add_lvm1_and_pool
-%patch7 -p1 -b .make_generate
-%patch8 -p1 -b .post_release
-%patch9 -p1 -b .lvconvert_matching_no_option
-%patch10 -p1 -b .lvconvert_text_splitmirrors
-%patch11 -p1 -b .reject_conversions_under_snapshot
-%patch12 -p1 -b .dmsetup_fix_error_display_info_cols
-%patch13 -p1 -b .reject_conversions_trackchage_LVs
-%patch14 -p1 -b .reject_conversions_trackchang_subLVs
-%patch15 -p1 -b .dmeventd_base_vdo_plugin
-%patch16 -p1 -b .dmeventd_rebase_to_stable_branch
-%patch17 -p1 -b .WHATS_NEW
-%patch18 -p1 -b .build_make_generate
-%patch19 -p1 -b .close_excl_fd_after_pvcreate
-%patch20 -p1 -b .mirrors_fix_RO_volume_list
-%patch21 -p1 -b .cache_drop_metadata_format_validation
-%patch22 -p1 -b .mirror_fix_splitmirrors
-%patch23 -p1 -b .direct_raid0_to_striped_conversion
-%patch24 -p1 -b .fix_conversion_to_linear
-%patch25 -p1 -b .dmeventd_lvm2_plugin_uses_envvar_registry
-%patch26 -p1 -b .lvm2_activation_after_rdbmap
-%patch27 -p1 -b .avoid_superfluous_raid_conversion
-%patch28 -p1 -b .fix_interim_segtype_on_raid6
-%patch29 -p1 -b .fix_clvmd_mirror
-%patch30 -p1 -b .prevent_writing_beyond_MDA
-%patch31 -p1 -b .libdm_stats_move_no_regions_warning_after_dm_stats_l
-%patch32 -p1 -b .dmsetup_fix_stats_report_command_output
-%patch33 -p1 -b .io_use_sync_io_if_aio_fails
-%patch34 -p1 -b .bcache_sync_io_fixes
-%patch35 -p1 -b .WHATS_NEW_sync_io
-%patch36 -p1 -b .scan_use_full_md_filter_when_md_1_0_devices_are_pres
-%patch37 -p1 -b .scan_enable_full_md_filter_when_md_1_0_devices_are_p
-%patch38 -p1 -b .scan_md_metadata_version_0_90_is_at_the_end_of_disk
-%patch39 -p1 -b .pvscan_lvmetad_use_full_md_filter_when_md_1_0_device
-%patch40 -p1 -b .pvscan_lvmetad_use_udev_info_to_improve_md_component
-%patch41 -p1 -b .build_make_generate2
-%patch42 -p1 -b .WHATS_NEW2
-%patch43 -p1 -b .apply_obtain_device_list_from_udev
-%patch44 -p1 -b .bcache_reduce_MAX_IO_to_256
-%patch45 -p1 -b .bcache_Fix_memory_leak
-%patch46 -p1 -b .config_add_new_setting_io_memory_size
-%patch47 -p1 -b .io_warn_when_metadata_size_approaches_io_memory_size
-%patch48 -p1 -b .io_increase_the_default_io_memory_from_4_to_8_MiB
-%patch49 -p1 -b .dm_migration_threshold_for_old_linked_tools
-%patch50 -p1 -b .rhel_config
-%patch51 -p1 -b .build_make_generate3
-%patch52 -p1 -b .pvscan_lvmetad_init_set_updating_before_scan
+%patch7 -p1 -b .lvmlockd_do_not_allow_mirror_LV_activation
+%patch8 -p1 -b .man_updates_to_lvmlockd
+%patch9 -p1 -b .cache_support_no_discard_passdown
+%patch10 -p1 -b .mirror_fix_monitoring_change
+%patch11 -p1 -b .generate
 
 %build
 %global _default_pid_dir /run
@@ -514,7 +420,7 @@ systemctl start lvm2-lvmpolld.socket
 %{_mandir}/man8/lvm-lvpoll.8.gz
 %endif
 %attr(755, -, -) %dir %{_sysconfdir}/lvm
-%ghost %attr(600, -, -) %{_sysconfdir}/lvm/cache/.cache
+%ghost %{_sysconfdir}/lvm/cache/.cache
 %attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lvm/lvm.conf
 %attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lvm/lvmlocal.conf
 %attr(755, -, -) %dir %{_sysconfdir}/lvm/profile
@@ -990,7 +896,7 @@ the device-mapper event library.
 %package -n %{boom_pkgname}
 Summary: %{boom_summary}
 Version: %{boom_version}
-Release: %{boom_release}%{?dist}.8%{?scratch}
+Release: %{boom_release}%{?dist}%{?scratch}
 License: GPLv2
 Group: System Environment/Base
 BuildArch: noarch
@@ -1021,17 +927,30 @@ This package provides the python2 version of boom.
 %endif
 
 %changelog
-* Mon May 13 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.8
-- Set updating before scanning in lvmetad to avoid overwriting list of already
-  seen devices.
+* Fri Jun 21 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.185-2
+- Fix cluster conversions from linear to mirror.
+- Report no_discard_passdown for cache LVs with lvs -o+kernel_discards.
+- Prevent shared active mirror LVs with lvmlockd.
+- Parsing of cache status understand no_discard_passdown.
 
-* Tue Apr 09 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.7
-- Add io_memory_size configuration option.
-- Warn when metadata aproaches io_memory_size.
-- Ensure migration_threshold for cache is at least 8 chunks.
+* Mon May 13 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.185-1
+- Fix change of monitoring in clustered volumes.
+- Improve -lXXX%VG modifier which improves cache segment estimation.
+- Add synchronization with udev before removing cached devices.
+- Fix missing growth of _pmspare volume when extending _tmeta volume.
+- Automatically grow thin metadata, when thin data gets too big.
 
-* Thu Apr 04 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.6
-- Reduce max concurrent aios to avoid EMFILE with many devices.
+* Mon Apr 29 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.184-3
+- Fix shutdown of deamons.
+
+* Wed Apr 17 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.184-2
+- Add support for vgsplit with cached devices.
+- Fix conversion of cache pool to RAID1 (2.02.184).
+- Fix signal delivery checking race in libdaemon (lvmetad).
+- Add missing Before=shutdown.target to LVM2 services to fix shutdown ordering.
+
+* Fri Mar 22 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.184-1
+- See WHATS_NEW and WHATS_NEW_DM in the documentation directory for details.
 
 * Mon Mar 18 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.5
 - boom: Bump release.

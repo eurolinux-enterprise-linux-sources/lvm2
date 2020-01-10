@@ -1,0 +1,71 @@
+ WHATS_NEW             | 1 +
+ WHATS_NEW_DM          | 4 ++++
+ lib/metadata/lv.c     | 5 +++++
+ libdm/libdevmapper.h  | 1 +
+ libdm/libdm-targets.c | 2 ++
+ 5 files changed, 13 insertions(+)
+
+diff --git a/WHATS_NEW b/WHATS_NEW
+index 106661f..d3da403 100644
+--- a/WHATS_NEW
++++ b/WHATS_NEW
+@@ -1,5 +1,6 @@
+ Version 2.02.186 - 
+ ================================
++  Report no_discard_passdown for cache LVs with lvs -o+kernel_discards.
+   Prevent shared active mirror LVs with lvmlockd.
+ 
+ Version 2.02.185 - 13th May 2019
+diff --git a/WHATS_NEW_DM b/WHATS_NEW_DM
+index 7c74bfe..8c78724 100644
+--- a/WHATS_NEW_DM
++++ b/WHATS_NEW_DM
+@@ -1,3 +1,7 @@
++Version 1.02.160 - 
++================================
++  Parsing of cache status understand no_discard_passdown.
++
+ Version 1.02.158 - 13th May 2019
+ ================================
+ 
+diff --git a/lib/metadata/lv.c b/lib/metadata/lv.c
+index 2abe42d..538b292 100644
+--- a/lib/metadata/lv.c
++++ b/lib/metadata/lv.c
+@@ -245,6 +245,11 @@ char *lvseg_kernel_discards_dup_with_info_and_seg_status(struct dm_pool *mem, co
+ 			return 0;
+ 		}
+ 		s = get_pool_discards_name(d);
++	} else if (lvdm->seg_status.type == SEG_STATUS_CACHE) {
++		if (lvdm->seg_status.cache->feature_flags &
++		    DM_CACHE_FEATURE_NO_DISCARD_PASSDOWN) {
++			s = "nopassdown";
++		}
+ 	}
+ 
+ 	if (!(ret = dm_pool_strdup(mem, s))) {
+diff --git a/libdm/libdevmapper.h b/libdm/libdevmapper.h
+index 19032d7..e885f52 100644
+--- a/libdm/libdevmapper.h
++++ b/libdm/libdevmapper.h
+@@ -1893,6 +1893,7 @@ int dm_tree_node_add_raid_target_with_params_v2(struct dm_tree_node *node,
+ #define DM_CACHE_FEATURE_WRITETHROUGH 0x00000002
+ #define DM_CACHE_FEATURE_PASSTHROUGH  0x00000004
+ #define DM_CACHE_FEATURE_METADATA2    0x00000008 /* cache v1.10 */
++#define DM_CACHE_FEATURE_NO_DISCARD_PASSDOWN 0x00000010
+ 
+ struct dm_config_node;
+ /*
+diff --git a/libdm/libdm-targets.c b/libdm/libdm-targets.c
+index 8766789..d0a8b43 100644
+--- a/libdm/libdm-targets.c
++++ b/libdm/libdm-targets.c
+@@ -296,6 +296,8 @@ int dm_get_status_cache(struct dm_pool *mem, const char *params,
+ 			s->feature_flags |= DM_CACHE_FEATURE_PASSTHROUGH;
+ 		else if (!strncmp(p, "metadata2 ", 10))
+ 			s->feature_flags |= DM_CACHE_FEATURE_METADATA2;
++		else if (!strncmp(p, "no_discard_passdown ", 20))
++			s->feature_flags |= DM_CACHE_FEATURE_NO_DISCARD_PASSDOWN;
+ 		else
+ 			log_error("Unknown feature in status: %s", params);
+ 

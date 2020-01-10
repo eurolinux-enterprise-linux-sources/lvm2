@@ -91,7 +91,7 @@
  create mode 100644 test/shell/snapshot-lvm1.sh
 
 diff --git a/configure b/configure
-index ef24b31..10b49c6 100755
+index f357462..2585e58 100755
 --- a/configure
 +++ b/configure
 @@ -675,6 +675,7 @@ PYTHON_BINDINGS
@@ -237,12 +237,12 @@ index ef24b31..10b49c6 100755
 +
 +
  ################################################################################
--ac_config_files="$ac_config_files Makefile make.tmpl daemons/Makefile daemons/clvmd/Makefile daemons/cmirrord/Makefile daemons/dmeventd/Makefile daemons/dmeventd/libdevmapper-event.pc daemons/dmeventd/plugins/Makefile daemons/dmeventd/plugins/lvm2/Makefile daemons/dmeventd/plugins/raid/Makefile daemons/dmeventd/plugins/mirror/Makefile daemons/dmeventd/plugins/snapshot/Makefile daemons/dmeventd/plugins/thin/Makefile daemons/dmfilemapd/Makefile daemons/lvmdbusd/Makefile daemons/lvmdbusd/lvmdbusd daemons/lvmdbusd/lvmdb.py daemons/lvmdbusd/lvm_shell_proxy.py daemons/lvmdbusd/path.py daemons/lvmetad/Makefile daemons/lvmpolld/Makefile daemons/lvmlockd/Makefile device_mapper/Makefile conf/Makefile conf/example.conf conf/lvmlocal.conf conf/command_profile_template.profile conf/metadata_profile_template.profile include/.symlinks include/Makefile lib/Makefile lib/locking/Makefile include/lvm-version.h libdaemon/Makefile libdaemon/client/Makefile libdaemon/server/Makefile libdm/Makefile libdm/libdevmapper.pc liblvm/Makefile liblvm/liblvm2app.pc man/Makefile po/Makefile python/Makefile python/setup.py scripts/blkdeactivate.sh scripts/blk_availability_init_red_hat scripts/blk_availability_systemd_red_hat.service scripts/clvmd_init_red_hat scripts/cmirrord_init_red_hat scripts/com.redhat.lvmdbus1.service scripts/dm_event_systemd_red_hat.service scripts/dm_event_systemd_red_hat.socket scripts/lvm2_cluster_activation_red_hat.sh scripts/lvm2_cluster_activation_systemd_red_hat.service scripts/lvm2_clvmd_systemd_red_hat.service scripts/lvm2_cmirrord_systemd_red_hat.service scripts/lvm2_lvmdbusd_systemd_red_hat.service scripts/lvm2_lvmetad_init_red_hat scripts/lvm2_lvmetad_systemd_red_hat.service scripts/lvm2_lvmetad_systemd_red_hat.socket scripts/lvm2_lvmpolld_init_red_hat scripts/lvm2_lvmpolld_systemd_red_hat.service scripts/lvm2_lvmpolld_systemd_red_hat.socket scripts/lvm2_lvmlockd_systemd_red_hat.service scripts/lvm2_lvmlocking_systemd_red_hat.service scripts/lvm2_monitoring_init_red_hat scripts/lvm2_monitoring_systemd_red_hat.service scripts/lvm2_pvscan_systemd_red_hat@.service scripts/lvm2_tmpfiles_red_hat.conf scripts/lvmdump.sh scripts/Makefile test/Makefile test/api/Makefile test/api/python_lvm_unit.py test/unit/Makefile tools/Makefile udev/Makefile"
-+ac_config_files="$ac_config_files Makefile make.tmpl daemons/Makefile daemons/clvmd/Makefile daemons/cmirrord/Makefile daemons/dmeventd/Makefile daemons/dmeventd/libdevmapper-event.pc daemons/dmeventd/plugins/Makefile daemons/dmeventd/plugins/lvm2/Makefile daemons/dmeventd/plugins/raid/Makefile daemons/dmeventd/plugins/mirror/Makefile daemons/dmeventd/plugins/snapshot/Makefile daemons/dmeventd/plugins/thin/Makefile daemons/dmfilemapd/Makefile daemons/lvmdbusd/Makefile daemons/lvmdbusd/lvmdbusd daemons/lvmdbusd/lvmdb.py daemons/lvmdbusd/lvm_shell_proxy.py daemons/lvmdbusd/path.py daemons/lvmetad/Makefile daemons/lvmpolld/Makefile daemons/lvmlockd/Makefile device_mapper/Makefile conf/Makefile conf/example.conf conf/lvmlocal.conf conf/command_profile_template.profile conf/metadata_profile_template.profile include/.symlinks include/Makefile lib/Makefile lib/format1/Makefile lib/format_pool/Makefile lib/locking/Makefile include/lvm-version.h libdaemon/Makefile libdaemon/client/Makefile libdaemon/server/Makefile libdm/Makefile libdm/libdevmapper.pc liblvm/Makefile liblvm/liblvm2app.pc man/Makefile po/Makefile python/Makefile python/setup.py scripts/blkdeactivate.sh scripts/blk_availability_init_red_hat scripts/blk_availability_systemd_red_hat.service scripts/clvmd_init_red_hat scripts/cmirrord_init_red_hat scripts/com.redhat.lvmdbus1.service scripts/dm_event_systemd_red_hat.service scripts/dm_event_systemd_red_hat.socket scripts/lvm2_cluster_activation_red_hat.sh scripts/lvm2_cluster_activation_systemd_red_hat.service scripts/lvm2_clvmd_systemd_red_hat.service scripts/lvm2_cmirrord_systemd_red_hat.service scripts/lvm2_lvmdbusd_systemd_red_hat.service scripts/lvm2_lvmetad_init_red_hat scripts/lvm2_lvmetad_systemd_red_hat.service scripts/lvm2_lvmetad_systemd_red_hat.socket scripts/lvm2_lvmpolld_init_red_hat scripts/lvm2_lvmpolld_systemd_red_hat.service scripts/lvm2_lvmpolld_systemd_red_hat.socket scripts/lvm2_lvmlockd_systemd_red_hat.service scripts/lvm2_lvmlocking_systemd_red_hat.service scripts/lvm2_monitoring_init_red_hat scripts/lvm2_monitoring_systemd_red_hat.service scripts/lvm2_pvscan_systemd_red_hat@.service scripts/lvm2_tmpfiles_red_hat.conf scripts/lvmdump.sh scripts/Makefile test/Makefile test/api/Makefile test/api/python_lvm_unit.py test/unit/Makefile tools/Makefile udev/Makefile"
+-ac_config_files="$ac_config_files Makefile make.tmpl daemons/Makefile daemons/clvmd/Makefile daemons/cmirrord/Makefile daemons/dmeventd/Makefile daemons/dmeventd/libdevmapper-event.pc daemons/dmeventd/plugins/Makefile daemons/dmeventd/plugins/lvm2/Makefile daemons/dmeventd/plugins/raid/Makefile daemons/dmeventd/plugins/mirror/Makefile daemons/dmeventd/plugins/snapshot/Makefile daemons/dmeventd/plugins/thin/Makefile daemons/dmeventd/plugins/vdo/Makefile daemons/dmfilemapd/Makefile daemons/lvmdbusd/Makefile daemons/lvmdbusd/lvmdbusd daemons/lvmdbusd/lvmdb.py daemons/lvmdbusd/lvm_shell_proxy.py daemons/lvmdbusd/path.py daemons/lvmetad/Makefile daemons/lvmpolld/Makefile daemons/lvmlockd/Makefile device_mapper/Makefile conf/Makefile conf/example.conf conf/lvmlocal.conf conf/command_profile_template.profile conf/metadata_profile_template.profile include/.symlinks include/Makefile lib/Makefile lib/locking/Makefile include/lvm-version.h libdaemon/Makefile libdaemon/client/Makefile libdaemon/server/Makefile libdm/Makefile libdm/libdevmapper.pc liblvm/Makefile liblvm/liblvm2app.pc man/Makefile po/Makefile python/Makefile python/setup.py scripts/blkdeactivate.sh scripts/blk_availability_init_red_hat scripts/blk_availability_systemd_red_hat.service scripts/clvmd_init_red_hat scripts/cmirrord_init_red_hat scripts/com.redhat.lvmdbus1.service scripts/dm_event_systemd_red_hat.service scripts/dm_event_systemd_red_hat.socket scripts/lvm2_cluster_activation_red_hat.sh scripts/lvm2_cluster_activation_systemd_red_hat.service scripts/lvm2_clvmd_systemd_red_hat.service scripts/lvm2_cmirrord_systemd_red_hat.service scripts/lvm2_lvmdbusd_systemd_red_hat.service scripts/lvm2_lvmetad_init_red_hat scripts/lvm2_lvmetad_systemd_red_hat.service scripts/lvm2_lvmetad_systemd_red_hat.socket scripts/lvm2_lvmpolld_init_red_hat scripts/lvm2_lvmpolld_systemd_red_hat.service scripts/lvm2_lvmpolld_systemd_red_hat.socket scripts/lvm2_lvmlockd_systemd_red_hat.service scripts/lvm2_lvmlocking_systemd_red_hat.service scripts/lvm2_monitoring_init_red_hat scripts/lvm2_monitoring_systemd_red_hat.service scripts/lvm2_pvscan_systemd_red_hat@.service scripts/lvm2_tmpfiles_red_hat.conf scripts/lvmdump.sh scripts/Makefile test/Makefile test/api/Makefile test/api/python_lvm_unit.py test/unit/Makefile tools/Makefile udev/Makefile"
++ac_config_files="$ac_config_files Makefile make.tmpl daemons/Makefile daemons/clvmd/Makefile daemons/cmirrord/Makefile daemons/dmeventd/Makefile daemons/dmeventd/libdevmapper-event.pc daemons/dmeventd/plugins/Makefile daemons/dmeventd/plugins/lvm2/Makefile daemons/dmeventd/plugins/raid/Makefile daemons/dmeventd/plugins/mirror/Makefile daemons/dmeventd/plugins/snapshot/Makefile daemons/dmeventd/plugins/thin/Makefile daemons/dmeventd/plugins/vdo/Makefile daemons/dmfilemapd/Makefile daemons/lvmdbusd/Makefile daemons/lvmdbusd/lvmdbusd daemons/lvmdbusd/lvmdb.py daemons/lvmdbusd/lvm_shell_proxy.py daemons/lvmdbusd/path.py daemons/lvmetad/Makefile daemons/lvmpolld/Makefile daemons/lvmlockd/Makefile device_mapper/Makefile conf/Makefile conf/example.conf conf/lvmlocal.conf conf/command_profile_template.profile conf/metadata_profile_template.profile include/.symlinks include/Makefile lib/Makefile lib/format1/Makefile lib/format_pool/Makefile lib/locking/Makefile include/lvm-version.h libdaemon/Makefile libdaemon/client/Makefile libdaemon/server/Makefile libdm/Makefile libdm/libdevmapper.pc liblvm/Makefile liblvm/liblvm2app.pc man/Makefile po/Makefile python/Makefile python/setup.py scripts/blkdeactivate.sh scripts/blk_availability_init_red_hat scripts/blk_availability_systemd_red_hat.service scripts/clvmd_init_red_hat scripts/cmirrord_init_red_hat scripts/com.redhat.lvmdbus1.service scripts/dm_event_systemd_red_hat.service scripts/dm_event_systemd_red_hat.socket scripts/lvm2_cluster_activation_red_hat.sh scripts/lvm2_cluster_activation_systemd_red_hat.service scripts/lvm2_clvmd_systemd_red_hat.service scripts/lvm2_cmirrord_systemd_red_hat.service scripts/lvm2_lvmdbusd_systemd_red_hat.service scripts/lvm2_lvmetad_init_red_hat scripts/lvm2_lvmetad_systemd_red_hat.service scripts/lvm2_lvmetad_systemd_red_hat.socket scripts/lvm2_lvmpolld_init_red_hat scripts/lvm2_lvmpolld_systemd_red_hat.service scripts/lvm2_lvmpolld_systemd_red_hat.socket scripts/lvm2_lvmlockd_systemd_red_hat.service scripts/lvm2_lvmlocking_systemd_red_hat.service scripts/lvm2_monitoring_init_red_hat scripts/lvm2_monitoring_systemd_red_hat.service scripts/lvm2_pvscan_systemd_red_hat@.service scripts/lvm2_tmpfiles_red_hat.conf scripts/lvmdump.sh scripts/Makefile test/Makefile test/api/Makefile test/api/python_lvm_unit.py test/unit/Makefile tools/Makefile udev/Makefile"
  
  cat >confcache <<\_ACEOF
  # This file is a shell script that caches the results of configure
-@@ -16285,6 +16374,8 @@ do
+@@ -16286,6 +16375,8 @@ do
      "include/.symlinks") CONFIG_FILES="$CONFIG_FILES include/.symlinks" ;;
      "include/Makefile") CONFIG_FILES="$CONFIG_FILES include/Makefile" ;;
      "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
@@ -252,7 +252,7 @@ index ef24b31..10b49c6 100755
      "include/lvm-version.h") CONFIG_FILES="$CONFIG_FILES include/lvm-version.h" ;;
      "libdaemon/Makefile") CONFIG_FILES="$CONFIG_FILES libdaemon/Makefile" ;;
 diff --git a/configure.ac b/configure.ac
-index 935ea08..9fa0c76 100644
+index e6bb905..ad356b8 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -283,6 +283,58 @@ AC_MSG_RESULT($MANGLING)
@@ -339,7 +339,7 @@ index 935ea08..9fa0c76 100644
  AC_SUBST(M_LIBS)
  AC_SUBST(PTHREAD_LIBS)
  AC_SUBST(PYTHON2)
-@@ -2117,6 +2173,8 @@ conf/metadata_profile_template.profile
+@@ -2118,6 +2174,8 @@ conf/metadata_profile_template.profile
  include/.symlinks
  include/Makefile
  lib/Makefile
@@ -406,7 +406,7 @@ index be2623a..a2adfe6 100644
  #define LVMETAD_DISABLE_REASON_VGRESTORE	"VGRESTORE"
  #define LVMETAD_DISABLE_REASON_REPAIR		"REPAIR"
 diff --git a/daemons/lvmetad/lvmetad-core.c b/daemons/lvmetad/lvmetad-core.c
-index 72473d7..f4f5f42 100644
+index 9ae359b..3e379fe 100644
 --- a/daemons/lvmetad/lvmetad-core.c
 +++ b/daemons/lvmetad/lvmetad-core.c
 @@ -200,12 +200,12 @@ struct vg_info {
@@ -446,7 +446,7 @@ index 72473d7..f4f5f42 100644
  			 (s->flags & GLFL_DISABLE_REASON_VGRESTORE)  ? LVMETAD_DISABLE_REASON_VGRESTORE "," : "");
  	}
 diff --git a/include/configure.h.in b/include/configure.h.in
-index 15fd150..605f1e1 100644
+index 812cacc..bbeb565 100644
 --- a/include/configure.h.in
 +++ b/include/configure.h.in
 @@ -72,6 +72,10 @@
@@ -460,7 +460,7 @@ index 15fd150..605f1e1 100644
  /* Name of default locking directory. */
  #undef DEFAULT_LOCK_DIR
  
-@@ -616,6 +620,13 @@
+@@ -619,6 +623,13 @@
     slash. */
  #undef LSTAT_FOLLOWS_SLASHED_SYMLINK
  
@@ -474,7 +474,7 @@ index 15fd150..605f1e1 100644
  /* Path to lvmetad pidfile. */
  #undef LVMETAD_PIDFILE
  
-@@ -678,6 +689,9 @@
+@@ -681,6 +692,9 @@
  /* Define to the version of this package. */
  #undef PACKAGE_VERSION
  
@@ -539,7 +539,7 @@ index 1d42235..241cf09 100644
  	locking
  endif
 diff --git a/lib/activate/activate.c b/lib/activate/activate.c
-index 56ec732..18f4b84 100644
+index dc9bc9e..6823e25 100644
 --- a/lib/activate/activate.c
 +++ b/lib/activate/activate.c
 @@ -37,6 +37,19 @@
@@ -563,7 +563,7 @@ index 56ec732..18f4b84 100644
  			 struct dm_list *modules)
  {
 diff --git a/lib/activate/activate.h b/lib/activate/activate.h
-index d2c6db7..2fc74ce 100644
+index 524d2bf..43d26d1 100644
 --- a/lib/activate/activate.h
 +++ b/lib/activate/activate.h
 @@ -91,6 +91,7 @@ int activation(void);
@@ -575,7 +575,7 @@ index d2c6db7..2fc74ce 100644
  int module_present(struct cmd_context *cmd, const char *target_name);
  int target_present_version(struct cmd_context *cmd, const char *target_name,
 diff --git a/lib/cache/lvmcache.c b/lib/cache/lvmcache.c
-index 3e681a2..2fba3ff 100644
+index ad40d4c..62f1d3c 100644
 --- a/lib/cache/lvmcache.c
 +++ b/lib/cache/lvmcache.c
 @@ -22,6 +22,8 @@
@@ -597,10 +597,10 @@ index 3e681a2..2fba3ff 100644
  		_drop_metadata(vgname, drop_precommitted);
  }
 diff --git a/lib/cache/lvmetad.c b/lib/cache/lvmetad.c
-index a1ab41a..2a2d7ea 100644
+index 86a880a..ec1a749 100644
 --- a/lib/cache/lvmetad.c
 +++ b/lib/cache/lvmetad.c
-@@ -37,6 +37,8 @@ static const char *_lvmetad_socket = NULL;
+@@ -38,6 +38,8 @@ static const char *_lvmetad_socket = NULL;
  static struct cmd_context *_lvmetad_cmd = NULL;
  static int64_t _lvmetad_update_timeout;
  
@@ -609,7 +609,7 @@ index a1ab41a..2a2d7ea 100644
  static struct volume_group *_lvmetad_pvscan_vg(struct cmd_context *cmd, struct volume_group *vg, const char *vgid, struct format_type *fmt);
  
  static uint64_t _monotonic_seconds(void)
-@@ -2277,6 +2279,18 @@ int lvmetad_pvscan_single(struct cmd_context *cmd, struct device *dev,
+@@ -2287,6 +2289,18 @@ int lvmetad_pvscan_single(struct cmd_context *cmd, struct device *dev,
  	if (!baton.fid)
  		goto_bad;
  
@@ -628,7 +628,7 @@ index a1ab41a..2a2d7ea 100644
  	lvmcache_foreach_mda(info, _lvmetad_pvscan_single, &baton);
  
  	if (!baton.vg)
-@@ -2440,9 +2454,11 @@ int lvmetad_pvscan_all_devs(struct cmd_context *cmd, int do_wait)
+@@ -2451,9 +2465,11 @@ int lvmetad_pvscan_all_devs(struct cmd_context *cmd, int do_wait)
  	}
  
  	/*
@@ -642,7 +642,7 @@ index a1ab41a..2a2d7ea 100644
  		log_debug_lvmetad("Enabling lvmetad which was previously disabled.");
  		lvmetad_clear_disabled(cmd);
  	}
-@@ -3058,6 +3074,9 @@ int lvmetad_is_disabled(struct cmd_context *cmd, const char **reason)
+@@ -3101,6 +3117,9 @@ int lvmetad_is_disabled(struct cmd_context *cmd, const char **reason)
  		} else if (strstr(reply_reason, LVMETAD_DISABLE_REASON_REPAIR)) {
  			*reason = "a repair command was run";
  
@@ -653,7 +653,7 @@ index a1ab41a..2a2d7ea 100644
  			*reason = "duplicate PVs were found";
  
 diff --git a/lib/commands/toolcontext.c b/lib/commands/toolcontext.c
-index c9596e2..2b72645 100644
+index 25e8b87..511ccd9 100644
 --- a/lib/commands/toolcontext.c
 +++ b/lib/commands/toolcontext.c
 @@ -36,6 +36,14 @@
@@ -671,7 +671,7 @@ index c9596e2..2b72645 100644
  #include <locale.h>
  #include <sys/stat.h>
  #include <sys/syscall.h>
-@@ -1134,12 +1142,14 @@ static struct dev_filter *_init_lvmetad_filter_chain(struct cmd_context *cmd)
+@@ -1138,12 +1146,14 @@ static struct dev_filter *_init_lvmetad_filter_chain(struct cmd_context *cmd)
  	}
  	nr_filt++;
  
@@ -686,7 +686,7 @@ index c9596e2..2b72645 100644
  
  	/* md component filter. Optional, non-critical. */
  	if (find_config_tree_bool(cmd, devices_md_component_detection_CFG, NULL)) {
-@@ -1340,6 +1350,20 @@ static int _init_formats(struct cmd_context *cmd)
+@@ -1344,6 +1354,20 @@ static int _init_formats(struct cmd_context *cmd)
  	const struct dm_config_node *cn;
  #endif
  
@@ -708,10 +708,10 @@ index c9596e2..2b72645 100644
  	/* Load any formats in shared libs if not static */
  	if (!is_static() &&
 diff --git a/lib/config/config_settings.h b/lib/config/config_settings.h
-index e98ca6d..6d79087 100644
+index 02e2b29..9904a62 100644
 --- a/lib/config/config_settings.h
 +++ b/lib/config/config_settings.h
-@@ -767,14 +767,26 @@ cfg(global_activation_CFG, "activation", global_CFG_SECTION, 0, CFG_TYPE_BOOL, D
+@@ -780,14 +780,26 @@ cfg(global_activation_CFG, "activation", global_CFG_SECTION, 0, CFG_TYPE_BOOL, D
  	"is not present in the kernel, disabling this should suppress\n"
  	"the error messages.\n")
  
@@ -5470,10 +5470,10 @@ index 7866d56..e535237 100644
  	if (vg->lock_type) {
  		outf(f, "lock_type = \"%s\"", vg->lock_type);
 diff --git a/lib/format_text/format-text.c b/lib/format_text/format-text.c
-index 5c7b72f..792d75a 100644
+index b9d85a4..200b011 100644
 --- a/lib/format_text/format-text.c
 +++ b/lib/format_text/format-text.c
-@@ -2545,9 +2545,9 @@ struct format_type *create_text_format(struct cmd_context *cmd)
+@@ -2559,9 +2559,9 @@ struct format_type *create_text_format(struct cmd_context *cmd)
  	fmt->name = FMT_TEXT_NAME;
  	fmt->alias = FMT_TEXT_ALIAS;
  	fmt->orphan_vg_name = ORPHAN_VG_NAME(FMT_TEXT_NAME);
@@ -5565,10 +5565,10 @@ index 2584227..2b53553 100644
  	case LCK_LV:
  		/* All LV locks are non-blocking. */
 diff --git a/lib/metadata/lv_manip.c b/lib/metadata/lv_manip.c
-index e4293cc..1c6dc62 100644
+index 9e7eff9..a8c50e7 100644
 --- a/lib/metadata/lv_manip.c
 +++ b/lib/metadata/lv_manip.c
-@@ -5981,6 +5981,8 @@ int lv_remove_single(struct cmd_context *cmd, struct logical_volume *lv,
+@@ -6003,6 +6003,8 @@ int lv_remove_single(struct cmd_context *cmd, struct logical_volume *lv,
  		     force_t force, int suppress_remove_message)
  {
  	struct volume_group *vg;
@@ -5577,7 +5577,7 @@ index e4293cc..1c6dc62 100644
  	int visible, historical;
  	struct logical_volume *pool_lv = NULL;
  	struct logical_volume *lock_lv = lv;
-@@ -6133,6 +6135,10 @@ int lv_remove_single(struct cmd_context *cmd, struct logical_volume *lv,
+@@ -6155,6 +6157,10 @@ int lv_remove_single(struct cmd_context *cmd, struct logical_volume *lv,
  		}
  
  	if (lv_is_cow(lv)) {
@@ -5588,7 +5588,7 @@ index e4293cc..1c6dc62 100644
  		log_verbose("Removing snapshot volume %s.", display_lvname(lv));
  		/* vg_remove_snapshot() will preload origin/former snapshots */
  		if (!vg_remove_snapshot(lv))
-@@ -6188,10 +6194,30 @@ int lv_remove_single(struct cmd_context *cmd, struct logical_volume *lv,
+@@ -6210,10 +6216,30 @@ int lv_remove_single(struct cmd_context *cmd, struct logical_volume *lv,
  		}
  	}
  
@@ -5620,7 +5620,7 @@ index e4293cc..1c6dc62 100644
  	/* TODO: defer when multiple LVs relased at once */
  	if (pool_lv && !update_pool_lv(pool_lv, 1)) {
 diff --git a/lib/metadata/metadata-exported.h b/lib/metadata/metadata-exported.h
-index f4fb112..377644b 100644
+index 75caba1..2245c29 100644
 --- a/lib/metadata/metadata-exported.h
 +++ b/lib/metadata/metadata-exported.h
 @@ -149,7 +149,7 @@
@@ -5652,7 +5652,7 @@ index f4fb112..377644b 100644
  #define MIRROR_BY_SEG		0x00000001U	/* segment-by-segment mirror */
  #define MIRROR_BY_LV		0x00000002U	/* mirror using whole mimage LVs */
 diff --git a/lib/metadata/metadata.c b/lib/metadata/metadata.c
-index 2292568..e33a779 100644
+index cb38f66..3620240 100644
 --- a/lib/metadata/metadata.c
 +++ b/lib/metadata/metadata.c
 @@ -1011,6 +1011,8 @@ struct volume_group *vg_create(struct cmd_context *cmd, const char *vg_name)
@@ -5664,7 +5664,7 @@ index 2292568..e33a779 100644
  
  	vg->extent_size = DEFAULT_EXTENT_SIZE * 2;
  	vg->max_lv = DEFAULT_MAX_LV;
-@@ -2971,7 +2973,7 @@ int vg_write(struct volume_group *vg)
+@@ -2969,7 +2971,7 @@ int vg_write(struct volume_group *vg)
  		return 0;
  	}
  
@@ -5673,7 +5673,7 @@ index 2292568..e33a779 100644
  		return_0;
  
  	if (!vg_mda_used_count(vg)) {
-@@ -5375,6 +5377,15 @@ int is_system_id_allowed(struct cmd_context *cmd, const char *system_id)
+@@ -5373,6 +5375,15 @@ int is_system_id_allowed(struct cmd_context *cmd, const char *system_id)
  static int _access_vg_systemid(struct cmd_context *cmd, struct volume_group *vg)
  {
  	/*
@@ -5689,7 +5689,7 @@ index 2292568..e33a779 100644
  	 * A few commands allow read-only access to foreign VGs.
  	 */
  	if (cmd->include_foreign_vgs)
-@@ -5426,6 +5437,11 @@ static int _vg_access_permitted(struct cmd_context *cmd, struct volume_group *vg
+@@ -5424,6 +5435,11 @@ static int _vg_access_permitted(struct cmd_context *cmd, struct volume_group *vg
  				uint32_t lockd_state, uint32_t *failure)
  {
  	if (!is_real_vg(vg->name)) {
@@ -5979,10 +5979,10 @@ index 0000000..75c97cb
 +
 +vgremove -ff $vg
 diff --git a/tools/args.h b/tools/args.h
-index 603a0cf..b80b8da 100644
+index c2fbac6..abe193c 100644
 --- a/tools/args.h
 +++ b/tools/args.h
-@@ -1207,7 +1207,8 @@ arg(mirrors_ARG, 'm', "mirrors", number_VAL, 0, 0,
+@@ -1211,7 +1211,8 @@ arg(mirrors_ARG, 'm', "mirrors", number_VAL, 0, 0,
  arg(metadatatype_ARG, 'M', "metadatatype", metadatatype_VAL, 0, 0,
      "Specifies the type of on-disk metadata to use.\n"
      "\\fBlvm2\\fP (or just \\fB2\\fP) is the current, standard format.\n"
@@ -5993,10 +5993,10 @@ index 603a0cf..b80b8da 100644
  arg(name_ARG, 'n', "name", string_VAL, 0, 0,
      "#lvcreate\n"
 diff --git a/tools/lvconvert.c b/tools/lvconvert.c
-index b149201..3ce228f 100644
+index bc666c0..4b04576 100644
 --- a/tools/lvconvert.c
 +++ b/tools/lvconvert.c
-@@ -1770,6 +1770,11 @@ static int _lvconvert_splitsnapshot(struct cmd_context *cmd, struct logical_volu
+@@ -1816,6 +1816,11 @@ static int _lvconvert_splitsnapshot(struct cmd_context *cmd, struct logical_volu
  		return 0;
  	}
  
@@ -6009,7 +6009,7 @@ index b149201..3ce228f 100644
  		/* FIXME: we need to create a lock for the new LV. */
  		log_error("Unable to split snapshots in VG with lock_type %s.", vg->lock_type);
 diff --git a/tools/lvmcmdline.c b/tools/lvmcmdline.c
-index 0dd24ec..0600b1c 100644
+index a9c3e41..f238b64 100644
 --- a/tools/lvmcmdline.c
 +++ b/tools/lvmcmdline.c
 @@ -23,6 +23,7 @@
@@ -6020,7 +6020,7 @@ index 0dd24ec..0600b1c 100644
  
  #include <signal.h>
  #include <sys/stat.h>
-@@ -2899,6 +2900,13 @@ int lvm_run_command(struct cmd_context *cmd, int argc, char **argv)
+@@ -2913,6 +2914,13 @@ int lvm_run_command(struct cmd_context *cmd, int argc, char **argv)
  		goto out;
  	}
  
@@ -6032,9 +6032,9 @@ index 0dd24ec..0600b1c 100644
 +	}
 +
  	if (cmd->command->command_enum == lvconvert_repair_CMD) {
- 		log_warn("WARNING: Disabling lvmetad cache for repair command.");
- 		lvmetad_set_disabled(cmd, LVMETAD_DISABLE_REASON_REPAIR);
-@@ -2963,7 +2971,7 @@ int lvm_run_command(struct cmd_context *cmd, int argc, char **argv)
+ 		log_warn("WARNING: Not using lvmetad because of repair.");
+ 		lvmetad_make_unused(cmd);
+@@ -2975,7 +2983,7 @@ int lvm_run_command(struct cmd_context *cmd, int argc, char **argv)
  	 *   by different token values.)
  	 *
  	 * lvmetad may have been previously disabled (or disabled during the
@@ -6043,7 +6043,7 @@ index 0dd24ec..0600b1c 100644
  	 * In this case, disable the *use* of lvmetad by this command, reverting to
  	 * disk scanning.
  	 */
-@@ -3388,6 +3396,41 @@ static int _run_script(struct cmd_context *cmd, int argc, char **argv)
+@@ -3400,6 +3408,41 @@ static int _run_script(struct cmd_context *cmd, int argc, char **argv)
  	return ret;
  }
  
@@ -6085,7 +6085,7 @@ index 0dd24ec..0600b1c 100644
  static void _nonroot_warning(void)
  {
  	if (getuid() || geteuid())
-@@ -3477,6 +3520,19 @@ int lvm2_main(int argc, char **argv)
+@@ -3489,6 +3532,19 @@ int lvm2_main(int argc, char **argv)
  	} else
  		run_name = dm_basename(argv[0]);
  
@@ -6106,10 +6106,10 @@ index 0dd24ec..0600b1c 100644
  	 * Decide if we are running a shell or a command or a script.  When
  	 * there is no run_name, it's a shell, when run_name is a recognized
 diff --git a/tools/pvscan.c b/tools/pvscan.c
-index 2915db5..d9ad097 100644
+index daac88f..c43d602 100644
 --- a/tools/pvscan.c
 +++ b/tools/pvscan.c
-@@ -631,7 +631,7 @@ out:
+@@ -650,7 +650,7 @@ out:
   * display the PV info.
   *
   * iii. If lvmetad is being used, but has been disabled (because of
@@ -6118,7 +6118,7 @@ index 2915db5..d9ad097 100644
   * (because the device filter is different from the device filter last
   * used to populate lvmetad), then 'pvscan' will begin by rescanning
   * devices to repopulate lvmetad.  If lvmetad is enabled after the
-@@ -644,7 +644,8 @@ out:
+@@ -663,7 +663,8 @@ out:
   * attempt to repopulate the lvmetad cache by rescanning all devs
   * (regardless of whether lvmetad was previously disabled or had an
   * unmatching token.)  lvmetad may be enabled or disabled after the
@@ -6141,7 +6141,7 @@ index 1d58387..f03e5d3 100644
  }
  
 diff --git a/tools/toollib.c b/tools/toollib.c
-index 413937f..b60ff06 100644
+index 3221e5f..bd9c9fe 100644
 --- a/tools/toollib.c
 +++ b/tools/toollib.c
 @@ -14,6 +14,7 @@
@@ -6152,7 +6152,7 @@ index 413937f..b60ff06 100644
  #include "format-text.h"
  
  #include <sys/stat.h>
-@@ -4110,6 +4111,7 @@ static int _process_duplicate_pvs(struct cmd_context *cmd,
+@@ -4168,6 +4169,7 @@ static int _process_duplicate_pvs(struct cmd_context *cmd,
  		.fid = &dummy_fid,
  		.name = "",
  		.system_id = (char *) "",
@@ -6160,7 +6160,7 @@ index 413937f..b60ff06 100644
  		.pvs = DM_LIST_HEAD_INIT(dummy_vg.pvs),
  		.lvs = DM_LIST_HEAD_INIT(dummy_vg.lvs),
  		.historical_lvs = DM_LIST_HEAD_INIT(dummy_vg.historical_lvs),
-@@ -4747,6 +4749,23 @@ int pvcreate_params_from_args(struct cmd_context *cmd, struct pvcreate_params *p
+@@ -4805,6 +4807,23 @@ int pvcreate_params_from_args(struct cmd_context *cmd, struct pvcreate_params *p
  	pp->pva.label_sector = arg_int64_value(cmd, labelsector_ARG,
  					       DEFAULT_LABELSECTOR);
  
@@ -6184,7 +6184,7 @@ index 413937f..b60ff06 100644
  	if (arg_is_set(cmd, metadataignore_ARG))
  		pp->pva.metadataignore = arg_int_value(cmd, metadataignore_ARG,
  						   DEFAULT_PVMETADATAIGNORE);
-@@ -5106,7 +5125,10 @@ static int _pvcreate_check_single(struct cmd_context *cmd,
+@@ -5164,7 +5183,10 @@ static int _pvcreate_check_single(struct cmd_context *cmd,
  			pd->is_orphan_pv = 1;
  		}
  
@@ -6196,7 +6196,7 @@ index 413937f..b60ff06 100644
  	} else {
  		log_debug("Found pvcreate arg %s: device is not a PV.", pd->name);
  		/* Device is not a PV. */
-@@ -5335,7 +5357,10 @@ static int _pvremove_check_single(struct cmd_context *cmd,
+@@ -5393,7 +5415,10 @@ static int _pvremove_check_single(struct cmd_context *cmd,
  			pd->is_orphan_pv = 1;
  		}
  
@@ -6231,10 +6231,10 @@ index 79c48b5..95dc8b2 100644
  val(segtype_VAL, segtype_arg, "SegType", "linear|striped|snapshot|mirror|raid|thin|cache|thin-pool|cache-pool")
  val(alloc_VAL, alloc_arg, "Alloc", "contiguous|cling|cling_by_tags|normal|anywhere|inherit")
 diff --git a/tools/vgchange.c b/tools/vgchange.c
-index 623517b..67be3ec 100644
+index 24c2253..4498f06 100644
 --- a/tools/vgchange.c
 +++ b/tools/vgchange.c
-@@ -534,6 +534,13 @@ static int _vgchange_system_id(struct cmd_context *cmd, struct volume_group *vg)
+@@ -545,6 +545,13 @@ static int _vgchange_system_id(struct cmd_context *cmd, struct volume_group *vg)
  	const char *system_id;
  	const char *system_id_arg_str = arg_str_value(cmd, systemid_ARG, NULL);
  
@@ -6248,7 +6248,7 @@ index 623517b..67be3ec 100644
  	if (!(system_id = system_id_from_string(cmd, system_id_arg_str))) {
  		log_error("Unable to set system ID.");
  		return 0;
-@@ -583,6 +590,9 @@ static int _vgchange_system_id(struct cmd_context *cmd, struct volume_group *vg)
+@@ -594,6 +601,9 @@ static int _vgchange_system_id(struct cmd_context *cmd, struct volume_group *vg)
  
  	vg->system_id = system_id;
  	

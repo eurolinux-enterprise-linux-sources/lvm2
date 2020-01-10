@@ -3,10 +3,10 @@
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/conf/example.conf.in b/conf/example.conf.in
-index 4894d04..48afbd1 100644
+index 7ccf928..4418f56 100644
 --- a/conf/example.conf.in
 +++ b/conf/example.conf.in
-@@ -311,7 +311,7 @@ devices {
+@@ -325,7 +325,7 @@ devices {
  	# or activating LVs in it while a PV appears on multiple devices.
  	# Enabling this setting allows the VG to be used as usual even with
  	# uncertain devices.
@@ -16,7 +16,7 @@ index 4894d04..48afbd1 100644
  
  # Configuration section allocation.
 diff --git a/lib/config/defaults.h b/lib/config/defaults.h
-index d9e19d9..894b979 100644
+index 6d3c37c..0d55928 100644
 --- a/lib/config/defaults.h
 +++ b/lib/config/defaults.h
 @@ -45,7 +45,7 @@
