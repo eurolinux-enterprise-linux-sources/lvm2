@@ -1,0 +1,24 @@
+ conf/example.conf.in | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/conf/example.conf.in b/conf/example.conf.in
+index b37e0b2..fec779b 100644
+--- a/conf/example.conf.in
++++ b/conf/example.conf.in
+@@ -1125,6 +1125,16 @@ global {
+ 	# When enabled, an LVM command that changes PVs, changes VG metadata,
+ 	# or changes the activation state of an LV will send a notification.
+ 	notify_dbus = 1
++
++	# Configuration option global/io_memory_size.
++	# The amount of memory in KiB that LVM allocates to perform disk io.
++	# LVM performance may benefit from more io memory when there are many
++	# disks or VG metadata is large. Increasing this size may be necessary
++	# when a single copy of VG metadata is larger than the current setting.
++	# This value should usually not be decreased from the default; setting
++	# it too low can result in lvm failing to read VGs.
++	# This configuration option has an automatic default value.
++	# io_memory_size = 8192
+ }
+ 
+ # Configuration section activation.

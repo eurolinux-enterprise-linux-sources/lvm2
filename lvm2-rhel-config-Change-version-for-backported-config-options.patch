@@ -1,0 +1,25 @@
+ lib/config/config_settings.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/config/config_settings.h b/lib/config/config_settings.h
+index c3e9600..5fddff0 100644
+--- a/lib/config/config_settings.h
++++ b/lib/config/config_settings.h
+@@ -947,7 +947,7 @@ cfg(global_lvdisplay_shows_full_device_path_CFG, "lvdisplay_shows_full_device_pa
+ 	"Previously this was always shown as /dev/vgname/lvname even when that\n"
+ 	"was never a valid path in the /dev filesystem.\n")
+ 
+-cfg(global_use_aio_CFG, "use_aio", global_CFG_SECTION, CFG_DEFAULT_COMMENTED, CFG_TYPE_BOOL, DEFAULT_USE_AIO, vsn(2, 2, 183), NULL, 0, NULL,
++cfg(global_use_aio_CFG, "use_aio", global_CFG_SECTION, CFG_DEFAULT_COMMENTED, CFG_TYPE_BOOL, DEFAULT_USE_AIO, vsn(2, 2, 180), NULL, 0, NULL,
+ 	"Use async I/O when reading and writing devices.\n")
+ 
+ cfg(global_use_lvmetad_CFG, "use_lvmetad", global_CFG_SECTION, 0, CFG_TYPE_BOOL, DEFAULT_USE_LVMETAD, vsn(2, 2, 93), "@DEFAULT_USE_LVMETAD@", 0, NULL,
+@@ -1138,7 +1138,7 @@ cfg(global_notify_dbus_CFG, "notify_dbus", global_CFG_SECTION, 0, CFG_TYPE_BOOL,
+ 	"When enabled, an LVM command that changes PVs, changes VG metadata,\n"
+ 	"or changes the activation state of an LV will send a notification.\n")
+ 
+-cfg(global_io_memory_size_CFG, "io_memory_size", global_CFG_SECTION, CFG_DEFAULT_COMMENTED, CFG_TYPE_INT, DEFAULT_IO_MEMORY_SIZE_KB, vsn(2, 2, 184), NULL, 0, NULL,
++cfg(global_io_memory_size_CFG, "io_memory_size", global_CFG_SECTION, CFG_DEFAULT_COMMENTED, CFG_TYPE_INT, DEFAULT_IO_MEMORY_SIZE_KB, vsn(2, 2, 180), NULL, 0, NULL,
+ 	"The amount of memory in KiB that LVM allocates to perform disk io.\n"
+ 	"LVM performance may benefit from more io memory when there are many\n"
+ 	"disks or VG metadata is large. Increasing this size may be necessary\n"

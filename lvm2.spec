@@ -67,7 +67,7 @@ Summary: Userland logical volume management tools
 Name: lvm2
 Epoch: 7
 Version: 2.02.180
-Release: 10%{?dist}.3%{?scratch}
+Release: 10%{?dist}.7%{?scratch}
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
@@ -120,6 +120,22 @@ Patch40: lvm2-2_02_183-pvscan-lvmetad-use-udev-info-to-improve-md-component.patc
 # Overhead:
 Patch41: lvm2-2_02_183-build-make-generate.patch
 Patch42: lvm2-2_02_183-WHATS_NEW.patch
+# BZ 1688316:
+Patch43: lvm2-2_02_184-apply-obtain_device_list_from_udev-to-all-libudev-us.patch
+# BZ 1695879
+Patch44: lvm2-2_02_182-bcache-reduce-MAX_IO-to-256.patch
+# Mem leak by covertity:
+Patch45: lvm2-2_02_185-bcache-Fix-memory-leak.patch
+# BZ 1696742
+Patch46: lvm2-2_02_184-config-add-new-setting-io_memory_size.patch
+Patch47: lvm2-2_02_184-io-warn-when-metadata-size-approaches-io-memory-size.patch
+Patch48: lvm2-2_02_184-io-increase-the-default-io-memory-from-4-to-8-MiB.patch
+# BZ 1696740
+Patch49: lvm2-2_02_184-dm-migration_threshold-for-old-linked-tools.patch
+# Internals;
+Patch50: lvm2-rhel-config-Change-version-for-backported-config-options.patch
+Patch51: lvm2-build-make-generate.patch
+
 
 BuildRequires: libselinux-devel >= %{libselinux_version}, libsepol-devel
 BuildRequires: libblkid-devel >= %{util_linux_version}
@@ -215,6 +231,15 @@ or more physical volumes and creating one or more logical volumes
 %patch40 -p1 -b .pvscan_lvmetad_use_udev_info_to_improve_md_component
 %patch41 -p1 -b .build_make_generate2
 %patch42 -p1 -b .WHATS_NEW2
+%patch43 -p1 -b .apply_obtain_device_list_from_udev
+%patch44 -p1 -b .bcache_reduce_MAX_IO_to_256
+%patch45 -p1 -b .bcache_Fix_memory_leak
+%patch46 -p1 -b .config_add_new_setting_io_memory_size
+%patch47 -p1 -b .io_warn_when_metadata_size_approaches_io_memory_size
+%patch48 -p1 -b .io_increase_the_default_io_memory_from_4_to_8_MiB
+%patch49 -p1 -b .dm_migration_threshold_for_old_linked_tools
+%patch50 -p1 -b .rhel_config
+%patch51 -p1 -b .build_make_generate3
 
 %build
 %global _default_pid_dir /run
@@ -962,7 +987,7 @@ the device-mapper event library.
 %package -n %{boom_pkgname}
 Summary: %{boom_summary}
 Version: %{boom_version}
-Release: %{boom_release}%{?dist}.2%{?scratch}
+Release: %{boom_release}%{?dist}.7%{?scratch}
 License: GPLv2
 Group: System Environment/Base
 BuildArch: noarch
@@ -993,6 +1018,20 @@ This package provides the python2 version of boom.
 %endif
 
 %changelog
+* Tue Apr 09 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.7
+- Add io_memory_size configuration option.
+- Warn when metadata aproaches io_memory_size.
+- Ensure migration_threshold for cache is at least 8 chunks.
+
+* Thu Apr 04 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.6
+- Reduce max concurrent aios to avoid EMFILE with many devices.
+
+* Mon Mar 18 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.5
+- boom: Bump release.
+
+* Mon Mar 18 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.4
+- Apply obtain_device_list_from_udev to all libudev calls.
+
 * Mon Dec 17 2018 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.3
 - Fix component detection for MD RAID version 1.0 and 0.90.
 - Use sync io if async io_setup fails, or when use_aio=0 is set in config.

@@ -1,0 +1,37 @@
+ WHATS_NEW           |  1 +
+ lib/device/bcache.c | 10 +++++++++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/WHATS_NEW b/WHATS_NEW
+index 47db4a3..8063364 100644
+--- a/WHATS_NEW
++++ b/WHATS_NEW
+@@ -10,6 +10,7 @@ Version 2.02.182 -
+   Fix change of monitoring in clustered volumes.
+   Fix lvconvert striped/raid0/raid0_meta -> raid6 regression.
+   Add After=rbdmap.service to {lvm2-activation-net,blk-availability}.service.
++  Reduce max concurrent aios to avoid EMFILE with many devices.
+   Fix lvconvert conversion attempts to linear.
+   Fix lvconvert raid0/raid0_meta -> striped regression.
+   Fix lvconvert --splitmirror for mirror type (2.02.178).
+diff --git a/lib/device/bcache.c b/lib/device/bcache.c
+index 6886b74..7384a32 100644
+--- a/lib/device/bcache.c
++++ b/lib/device/bcache.c
+@@ -253,7 +253,15 @@ static bool _async_issue(struct io_engine *ioe, enum dir d, int fd,
+ 	return true;
+ }
+ 
+-#define MAX_IO 1024
++/*
++ * MAX_IO is returned to the layer above via bcache_max_prefetches() which
++ * tells the caller how many devices to submit io for concurrently.  There will
++ * be an open file descriptor for each of these, so keep it low enough to avoid
++ * reaching the default max open file limit (1024) when there are over 1024
++ * devices being scanned.
++ */
++
++#define MAX_IO 256
+ #define MAX_EVENT 64
+ 
+ static bool _async_wait(struct io_engine *ioe, io_complete_fn fn)
