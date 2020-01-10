@@ -67,7 +67,7 @@ Summary: Userland logical volume management tools
 Name: lvm2
 Epoch: 7
 Version: 2.02.180
-Release: 10%{?dist}.7%{?scratch}
+Release: 10%{?dist}.8%{?scratch}
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
@@ -132,9 +132,11 @@ Patch47: lvm2-2_02_184-io-warn-when-metadata-size-approaches-io-memory-size.patc
 Patch48: lvm2-2_02_184-io-increase-the-default-io-memory-from-4-to-8-MiB.patch
 # BZ 1696740
 Patch49: lvm2-2_02_184-dm-migration_threshold-for-old-linked-tools.patch
-# Internals;
+# Internals:
 Patch50: lvm2-rhel-config-Change-version-for-backported-config-options.patch
 Patch51: lvm2-build-make-generate.patch
+# BZ 1698750
+Patch52: lvm2-2_02_184-pvscan-lvmetad-init-should-set-updating-before-scann.patch
 
 
 BuildRequires: libselinux-devel >= %{libselinux_version}, libsepol-devel
@@ -240,6 +242,7 @@ or more physical volumes and creating one or more logical volumes
 %patch49 -p1 -b .dm_migration_threshold_for_old_linked_tools
 %patch50 -p1 -b .rhel_config
 %patch51 -p1 -b .build_make_generate3
+%patch52 -p1 -b .pvscan_lvmetad_init_set_updating_before_scan
 
 %build
 %global _default_pid_dir /run
@@ -511,7 +514,7 @@ systemctl start lvm2-lvmpolld.socket
 %{_mandir}/man8/lvm-lvpoll.8.gz
 %endif
 %attr(755, -, -) %dir %{_sysconfdir}/lvm
-%ghost %{_sysconfdir}/lvm/cache/.cache
+%ghost %attr(600, -, -) %{_sysconfdir}/lvm/cache/.cache
 %attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lvm/lvm.conf
 %attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lvm/lvmlocal.conf
 %attr(755, -, -) %dir %{_sysconfdir}/lvm/profile
@@ -987,7 +990,7 @@ the device-mapper event library.
 %package -n %{boom_pkgname}
 Summary: %{boom_summary}
 Version: %{boom_version}
-Release: %{boom_release}%{?dist}.7%{?scratch}
+Release: %{boom_release}%{?dist}.8%{?scratch}
 License: GPLv2
 Group: System Environment/Base
 BuildArch: noarch
@@ -1018,6 +1021,10 @@ This package provides the python2 version of boom.
 %endif
 
 %changelog
+* Mon May 13 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.8
+- Set updating before scanning in lvmetad to avoid overwriting list of already
+  seen devices.
+
 * Tue Apr 09 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.180-10.el7_6.7
 - Add io_memory_size configuration option.
 - Warn when metadata aproaches io_memory_size.
