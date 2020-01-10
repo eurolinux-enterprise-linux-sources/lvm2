@@ -1,0 +1,41 @@
+From a9b36a2e6388f4b046af2f9de4f062e28e87015d Mon Sep 17 00:00:00 2001
+From: Heinz Mauelshagen <heinzm@redhat.com>
+Date: Mon, 8 Jul 2019 19:07:18 +0200
+Subject: [PATCH 1/2] lvconvert: allow --stripes/--stripesize in 'mirror'
+ conversions
+
+This allows the creation of a striped mirror leg(s) during upconvert
+by adding lvconvert command line options --stripes/--stripesize
+for 'mirror' to tools/command-lines.in.
+
+In case multiple mirror legs are being added, all will have the
+same requested striped layout.
+
+Resolves: rhbz1720705
+(cherry picked from commit e3c8cebd87f9bd7591529f3d65783cc6f1fd3f92)
+---
+ tools/command-lines.in | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/tools/command-lines.in b/tools/command-lines.in
+index a8c06ba..b4a9896 100644
+--- a/tools/command-lines.in
++++ b/tools/command-lines.in
+@@ -334,13 +334,11 @@ DESC: Convert LV to striped.
+ RULE: all not lv_is_locked lv_is_pvmove
+ 
+ lvconvert --type mirror LV
+-OO: --mirrors SNumber, --regionsize RegionSize, --interval Number, --mirrorlog MirrorLog, OO_LVCONVERT
++OO: --mirrors SNumber, --stripes_long Number, --stripesize SizeKB, --regionsize RegionSize, --interval Number, --mirrorlog MirrorLog, OO_LVCONVERT
+ OP: PV ...
+ ID: lvconvert_raid_types
+ DESC: Convert LV to type mirror (also see type raid1),
+-DESC: (also see lvconvert --mirrors).
+ RULE: all not lv_is_locked lv_is_pvmove
+-FLAGS: SECONDARY_SYNTAX
+ 
+ # When LV is already raid, this changes the raid layout
+ # (changing layout of raid0 and raid1 not allowed.)
+-- 
+1.8.3.1
+

@@ -67,7 +67,7 @@ Summary: Userland logical volume management tools
 Name: lvm2
 Epoch: 7
 Version: 2.02.185
-Release: 2%{?dist}%{?scratch}
+Release: 2%{?dist}%{?scratch}.2
 License: GPLv2
 Group: System Environment/Base
 URL: http://sources.redhat.com/lvm2
@@ -85,6 +85,10 @@ Patch8: lvm2-2_02_186-man-updates-to-lvmlockd.patch
 Patch9: lvm2-2_02_186-cache-support-no_discard_passdown.patch
 Patch10: lvm2-2_02_186-mirror-fix-monitoring-change.patch
 Patch11: lvm2-make-generate.patch
+Patch12: lvm2-2_02_186-lvconvert-allow-stripes-stripesize-in-mirror-convers.patch
+Patch13: lvm2-2_02_186-Fix-rounding-writes-up-to-sector-size.patch
+Patch14: lvm2-make-generate-2.patch
+Patch15: lvm2-2_02_186-cov-Fix-a-leak.patch
 
 BuildRequires: libselinux-devel >= %{libselinux_version}, libsepol-devel
 BuildRequires: libblkid-devel >= %{util_linux_version}
@@ -149,6 +153,11 @@ or more physical volumes and creating one or more logical volumes
 %patch9 -p1 -b .cache_support_no_discard_passdown
 %patch10 -p1 -b .mirror_fix_monitoring_change
 %patch11 -p1 -b .generate
+%patch12 -p1 -b .allow_stripes_in_mirror_conversions
+%patch13 -p1 -b .fix_rounding_writes_up_to_sector_size
+%patch14 -p1 -b .generate2
+%patch15 -p1 -b .cov_mem_leak
+
 
 %build
 %global _default_pid_dir /run
@@ -896,7 +905,7 @@ the device-mapper event library.
 %package -n %{boom_pkgname}
 Summary: %{boom_summary}
 Version: %{boom_version}
-Release: %{boom_release}%{?dist}%{?scratch}
+Release: %{boom_release}%{?dist}%{?scratch}.2
 License: GPLv2
 Group: System Environment/Base
 BuildArch: noarch
@@ -927,6 +936,13 @@ This package provides the python2 version of boom.
 %endif
 
 %changelog
+* Tue Aug 27 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.185-2.el7_7.2
+- Fix potential memory leak.
+
+* Mon Aug 26 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.185-2.el7_7.1
+- Allow stripes in mirror conversions. 
+- Fix rounding of writes to sector size.
+
 * Fri Jun 21 2019 Marian Csontos <mcsontos@redhat.com> - 7:2.02.185-2
 - Fix cluster conversions from linear to mirror.
 - Report no_discard_passdown for cache LVs with lvs -o+kernel_discards.

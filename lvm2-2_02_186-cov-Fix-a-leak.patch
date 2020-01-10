@@ -1,0 +1,35 @@
+From de0ec5fed07468b7205f9b84c668cb73445a29d3 Mon Sep 17 00:00:00 2001
+From: Marian Csontos <mcsontos@redhat.com>
+Date: Tue, 27 Aug 2019 12:21:41 +0200
+Subject: [PATCH] cov: Fix a leak
+
+---
+ lib/device/bcache.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/lib/device/bcache.c b/lib/device/bcache.c
+index 423eeb7..b6ec8d4 100644
+--- a/lib/device/bcache.c
++++ b/lib/device/bcache.c
+@@ -517,6 +517,7 @@ static bool _sync_issue(struct io_engine *ioe, enum dir d, int fd,
+ 					  (unsigned long long)limit_nbytes,
+ 					  (unsigned long long)extra_nbytes,
+ 					  (unsigned long long)_last_byte_sector_size);
++                                free(io);
+ 				return false;
+ 			}
+ 		}
+@@ -548,8 +549,8 @@ static bool _sync_issue(struct io_engine *ioe, enum dir d, int fd,
+ 				log_debug("Device write error %d offset %llu len %llu", errno,
+ 					  (unsigned long long)(where + pos),
+ 					  (unsigned long long)(len - pos));
+-                	free(io);
+-                	return false;
++			free(io);
++			return false;
+ 		}
+ 		pos += rv;
+ 	}
+-- 
+1.8.3.1
+
